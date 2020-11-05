@@ -5,7 +5,7 @@
 	{{{end}}}
 </div>
 <div class="recent">
-	<div class="btn-toolbar">
+	<!-- <div class="btn-toolbar">
 		<div class="pull-left">
 			<!-- IF canPost -->
 			<!-- IMPORT partials/buttons/newTopic.tpl -->
@@ -37,7 +37,7 @@
 		</div>
 	</div>
 
-	<hr class="hidden-xs"/>
+	<hr class="hidden-xs"/> -->
 
 	<div class="category">
 		<!-- IF !topics.length -->

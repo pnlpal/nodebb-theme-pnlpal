@@ -42,9 +42,9 @@
 				<!-- ENDIF !topics.noAnchor -->
 
 				<!-- IF !template.category -->
-				<small>
+				<!-- <small>
 					<a href="{config.relative_path}/category/{topics.category.slug}"><span class="fa-stack fa-lg" style="{function.generateCategoryBackground, topics.category}"><i style="color:{topics.category.color};" class="fa {topics.category.icon} fa-stack-1x"></i></span> {topics.category.name}</a> &bull;
-				</small>
+				</small> -->
 				<!-- ENDIF !template.category -->
 
 				<!-- IF topics.tags.length -->
@@ -96,12 +96,12 @@
 				</p>
 				<!-- ELSE -->
 				<!-- IF topics.teaser.pid -->
-				<p>
+				<!-- <p>
 					<a href="{config.relative_path}/user/{topics.teaser.user.userslug}">{buildAvatar(topics.teaser.user, "24", true, "not-responsive")}</a>
 					<a class="permalink" href="{config.relative_path}/topic/{topics.slug}/{topics.teaser.index}">
 						<span class="timeago" title="{topics.teaser.timestampISO}"></span>
 					</a>
-				</p>
+				</p> -->
 				<div class="post-content">
 					{topics.teaser.content}
 				</div>

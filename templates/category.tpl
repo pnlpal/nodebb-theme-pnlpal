@@ -9,7 +9,7 @@
 		<!-- IMPORT partials/category/subcategory.tpl -->
 
 		<!-- IF children.length --><hr class="hidden-xs"/><!-- ENDIF children.length -->
-
+<!-- 
 		<div class="clearfix">
 			<!-- IF privileges.topics:create -->
 			<a href="{config.relative_path}/compose?cid={cid}" component="category/post" id="new_topic" class="btn btn-primary" data-ajaxify="false" role="button">[[category:new_topic_button]]</a>
@@ -32,7 +32,7 @@
 
 		<hr class="hidden-xs" />
 
-		<p class="hidden-xs">{name}</p>
+		<p class="hidden-xs">{name}</p> -->
 
 		<!-- IF !topics.length -->
 		<!-- IF privileges.topics:create -->
