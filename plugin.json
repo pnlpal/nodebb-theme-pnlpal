@@ -1,5 +1,5 @@
 {
-	"id": "nodebb-theme-persona",
+	"id": "nodebb-theme-pnlpal",
 	"library": "library.js",
 	"hooks": [
 		{ "hook": "filter:widgets.getAreas", "method": "defineWidgetAreas" },
