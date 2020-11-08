@@ -36,7 +36,13 @@
 				{{{each icons}}}@value{{{end}}}
 
 				<!-- IF !topics.noAnchor -->
-				<a href="{config.relative_path}/topic/{topics.slug}<!-- IF topics.bookmark -->/{topics.bookmark}<!-- ENDIF topics.bookmark -->" itemprop="url">{topics.title}</a><br />
+					<!-- IF topics.externalLink -->
+					<a href="{topics.externalLink}" rel="nofollow" target="_blank" itemprop="url" class="external-link" data-tid="{topics.tid}">
+						<i class="fa fa-external-link"></i>
+					</a>
+					<!-- ENDIF topics.externalLink -->
+
+					<a href="{config.relative_path}/topic/{topics.slug}<!-- IF topics.bookmark -->/{topics.bookmark}<!-- ENDIF topics.bookmark -->" itemprop="url">{topics.title}</a><br />
 				<!-- ELSE -->
 				<span>{topics.title}</span><br />
 				<!-- ENDIF !topics.noAnchor -->

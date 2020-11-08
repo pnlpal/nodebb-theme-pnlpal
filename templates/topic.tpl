@@ -14,7 +14,15 @@
 						<i class="fa fa-arrow-circle-right <!-- IF !oldCid -->hidden<!-- ENDIF !oldCid -->" title="[[topic:moved]]"></i>
 						{{{each icons}}}@value{{{end}}}
 					</span>
+
+					<!-- IF externalLink -->
+					<a href="{externalLink}" rel="nofollow" target="_blank" itemprop="url" class="external-link" data-tid="{tid}">
+						<i class="fa fa-external-link"></i>
+						{title}
+					</a>
+					<!-- ELSE -->
 					{title}
+					<!-- ENDIF externalLink -->
 				</span>
 			</h1>
 

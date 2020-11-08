@@ -6,6 +6,8 @@ var user = require.main.require('./src/user');
 
 var library = {};
 
+require('./external')(library);
+
 library.init = function(params, callback) {
 	var app = params.router;
 	var middleware = params.middleware;
