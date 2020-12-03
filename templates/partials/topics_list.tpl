@@ -5,7 +5,7 @@
 		<a id="{../index}" data-index="{../index}" component="topic/anchor"></a>
 		<meta itemprop="name" content="{function.stripTags, title}">
 
-		<div class="col-md-6 col-sm-9 col-xs-10 content">
+		<div class="col-md-9 col-sm-9 col-xs-12 content">
 			<div class="avatar pull-left">
 				<!-- IF showSelect -->
 				<div class="select" component="topic/select">
@@ -71,27 +71,25 @@
 					<!-- ENDIF topics.teaser.timestamp -->
 				</small>
 			</h2>
-		</div>
 
-		<div class="mobile-stat col-xs-2 visible-xs text-right">
-			<span class="human-readable-number">{topics.postcount}</span> <a href="{config.relative_path}/topic/{topics.slug}/{topics.teaser.index}"><i class="fa fa-arrow-circle-right"></i></a>
-		</div>
-
-		<div class="col-md-1 hidden-sm hidden-xs stats stats-votes">
-			<!-- IF !reputation:disabled -->
-			<span class="human-readable-number" title="{topics.votes}">{topics.votes}</span><br />
-			<small>[[global:votes]]</small>
-			<!-- END -->
-		</div>
-
-		<div class="col-md-1 hidden-sm hidden-xs stats stats-postcount">
-			<span class="human-readable-number" title="{topics.postcount}">{topics.postcount}</span><br />
-			<small>[[global:posts]]</small>
-		</div>
-
-		<div class="col-md-1 hidden-sm hidden-xs stats stats-viewcount">
-			<span class="human-readable-number" title="{topics.viewcount}">{topics.viewcount}</span><br />
-			<small>[[global:views]]</small>
+			<div class="stats-row">
+				<div class="col-xs-4 stats stats-votes">
+					<!-- IF !reputation:disabled -->
+					<i class="fa fa-heart-o"></i>
+					<span class="human-readable-number" title="{topics.votes}">{topics.votes}</span>
+					<!-- END -->
+				</div>
+		
+				<div class="col-xs-4 stats stats-postcount">
+					<i class="fa fa-comment-o"></i>
+					<span class="human-readable-number" title="{topics.postcount}">{topics.postcount}</span>
+				</div>
+		
+				<div class="col-xs-4 stats stats-viewcount">
+					<i class="fa fa-eye"></i>
+					<span class="human-readable-number" title="{topics.viewcount}">{topics.viewcount}</span>
+				</div>
+			</div>
 		</div>
 
 		<div class="col-md-3 col-sm-3 teaser hidden-xs" component="topic/teaser">
