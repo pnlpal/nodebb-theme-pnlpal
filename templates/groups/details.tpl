@@ -160,14 +160,31 @@
 						<label for="name">[[groups:details.description]]</label>
 						<textarea class="form-control" name="description" id="description" type="text" maxlength="255">{group.description}</textarea>
 					</div>
+
+					<hr />
+					<div class="form-group">
+						<label for="memberPostCids">[[groups:details.member-post-cids]]</label>
+						<select multiple="true" name="memberPostCids" id="memberPostCids" class="form-control" size="15">
+							{{{each group.categories}}}
+							<option value="{categories.cid}"{{{ if ../selected }}} selected{{{ end }}}>
+								{../level}{../name}
+							</option>
+							{{{end}}}
+						</select>
+						<p class="help-block">[[groups:details.member-post-cids-help]]</p>
+					</div>
+
+					<hr />
+
 					<div class="form-group user-title-option">
 						<label for="userTitle">[[groups:details.badge_text]]</label>
-						<input component="groups/userTitleOption" class="form-control" name="userTitle" id="userTitle" type="text" maxlength="40" value="{group.userTitle}"<!-- IF !group.userTitleEnabled --> disabled<!-- ENDIF !group.userTitleEnabled --> />
+						<input component="groups/userTitleOption" class="form-control" name="userTitle" id="userTitle" type="text" maxlength="40" value="{group.userTitleEscaped}"<!-- IF !group.userTitleEnabled --> disabled<!-- ENDIF !group.userTitleEnabled --> />
 					</div>
 
 					<div class="form-group user-title-option">
 						<label>[[groups:details.badge_preview]]</label><br />
-						<span class="label<!-- IF !group.userTitleEnabled --> hide<!-- ENDIF !group.userTitleEnabled -->" style="color: {group.textColor}; background-color: {group.labelColor}"><i class="fa<!-- IF group.icon --> {group.icon}<!-- ENDIF group.icon -->"></i> <!-- IF group.userTitle -->{group.userTitle}<!-- ELSE -->{group.displayName}<!-- ENDIF group.userTitle --></span>
+						<span class="label<!-- IF !group.userTitleEnabled --> hide<!-- ENDIF !group.userTitleEnabled -->" style="color: {group.textColor}; background-color: {group.labelColor}"><i class="fa<!-- IF group.icon --> {group.icon}<!-- ENDIF group.icon -->"></i> <span class="label-text"><!-- IF group.userTitle -->{group.userTitle}<!-- ELSE -->{group.displayName}<!-- ENDIF group.userTitle --></span></span>
+
 						<hr/>
 						<button component="groups/userTitleOption" type="button" class="btn btn-default btn-sm" data-action="icon-select"<!-- IF !group.userTitleEnabled --> disabled<!-- ENDIF !group.userTitleEnabled -->>[[groups:details.change_icon]]</button>
 						<div>

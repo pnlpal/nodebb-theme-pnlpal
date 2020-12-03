@@ -1,7 +1,11 @@
 <!-- IMPORT partials/breadcrumbs.tpl -->
-
+<div data-widget-area="header">
+	{{{each widgets.header}}}
+	{{widgets.header.html}}
+	{{{end}}}
+</div>
 <div class="tag">
-	<div class="btn-toolbar">
+	<div class="topic-list-header btn-toolbar">
 		<div class="pull-left">
 			<!-- IF loggedIn -->
 			<!-- IMPORT partials/buttons/newTopic.tpl -->
@@ -10,8 +14,6 @@
 			<!-- ENDIF loggedIn -->
 		</div>
 	</div>
-
-	<hr class="hidden-xs"/>
 
 	<!-- IF !topics.length -->
 	<div class="alert alert-warning">[[tags:no_tag_topics]]</div>

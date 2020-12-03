@@ -44,6 +44,10 @@
 		top: @navbar-height;
 		background-color: @body-bg;
 		z-index: @zindex-navbar;
+		margin-left: -15px;
+		margin-right: -15px;
+		padding-left: 15px;
+		padding-right: 15px;
 	}
 
 	.topic-info {
@@ -182,11 +186,10 @@
 	}
 
 	.threaded-replies {
-		margin-left: 61px;
-		text-decoration: none;
 		margin-left: 60px;
+		margin-top: 10px;
+		text-decoration: none;
 		font-size: 11px;
-
 
 		img, .user-icon {
 			.user-icon-style(16px, 10px, 50%);
@@ -419,10 +422,13 @@
 	.posts {
 		list-style-type: none;
 		padding: 0;
-
+		[component="post"][data-index="0"] {
+			border-bottom: 5px solid @post-border-color;
+		}
 		[component="post"] {
 			position: relative;
 			border-bottom: 1px solid @post-border-color;
+
 			padding-bottom: @post-padding;
 			margin-bottom: @post-padding;
 
@@ -599,6 +605,12 @@
 }
 
 [component="post"] {
+	&.topic-owner-post>.post-header .avatar {
+		-webkit-box-shadow: 0px 0px 4px 3px @brand-primary;
+		-moz-box-shadow: 0px 0px 4px 3px @brand-primary;
+		box-shadow: 0px 0px 4px 3px @brand-primary;
+	}
+
 	.avatar.avatar-sm2x {
 		font-size: 2.875rem;
 	}

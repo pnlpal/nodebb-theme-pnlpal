@@ -9,10 +9,10 @@
 			<h1 component="post/header" class="" itemprop="name">
 				<span class="topic-title" component="topic/title">
 					<span component="topic/labels">
-						<i component="topic/pinned" class="fa fa-thumb-tack <!-- IF !pinned -->hidden<!-- ENDIF !pinned -->" title="[[topic:pinned]]"></i>
+						<i component="topic/pinned" class="fa fa-thumb-tack <!-- IF !pinned -->hidden<!-- ENDIF !pinned -->" title="{{{ if !pinExpiry }}}[[topic:pinned]]{{{ else }}}[[topic:pinned-with-expiry, {pinExpiryISO}]]{{{ end }}}"></i>
 						<i component="topic/locked" class="fa fa-lock <!-- IF !locked -->hidden<!-- ENDIF !locked -->" title="[[topic:locked]]"></i>
-						<i class="fa fa-arrow-circle-right <!-- IF !oldCid -->hidden<!-- ENDIF !oldCid -->" title="[[topic:moved]]"></i>
-						{{{each icons}}}@value{{{end}}}
+						<i class="fa fa-arrow-circle-right <!-- IF !oldCid -->hidden<!-- ENDIF !oldCid -->" title="{{{ if privileges.isAdminOrMod }}}[[topic:moved-from, {oldCategory.name}]]{{{ else }}}[[topic:moved]]{{{ end }}}"></i>
+						{{{each icons}}}{@value}{{{end}}}
 					</span>
 
 					<!-- IF externalLink -->
@@ -34,15 +34,18 @@
 					</div>
 					{{{ end }}}
 					<a href="{config.relative_path}/category/{category.slug}">{category.name}</a>
+
 				</div>
 
-				<div class="tags tag-list inline-block">
+				<div class="tags tag-list inline-block hidden-xs">
 					<!-- IMPORT partials/topic/tags.tpl -->
 				</div>
-				<div class="inline-block">
+				<div class="inline-block hidden-xs">
 					<!-- IMPORT partials/topic/stats.tpl -->
 				</div>
-
+				{{{ if !feeds:disableRSS }}}
+				{{{ if rssFeedUrl }}}<a class="hidden-xs" target="_blank" href="{rssFeedUrl}"><i class="fa fa-rss-square"></i></a>{{{ end }}}
+				{{{ end }}}
 				<!-- IMPORT partials/topic/browsing-users.tpl -->
 
 				<!-- IMPORT partials/post_bar.tpl -->
@@ -64,7 +67,7 @@
 
 		<ul component="topic" class="posts" data-tid="{tid}" data-cid="{cid}">
 			{{{each posts}}}
-				<li component="post" class="<!-- IF posts.deleted -->deleted<!-- ENDIF posts.deleted -->" <!-- IMPORT partials/data/topic.tpl -->>
+				<li component="post" class="{{{ if posts.deleted }}}deleted{{{ end }}} {{{ if posts.selfPost }}}self-post{{{ end }}} {{{ if posts.topicOwnerPost }}}topic-owner-post{{{ end }}}" <!-- IMPORT partials/data/topic.tpl -->>
 					<a component="post/anchor" data-index="{posts.index}" id="{posts.index}"></a>
 
 					<meta itemprop="datePublished" content="{posts.timestampISO}">

@@ -1,6 +1,5 @@
 'use strict';
 
-var striptags = require('striptags');
 var meta = require.main.require('./src/meta');
 var user = require.main.require('./src/user');
 
@@ -74,6 +73,26 @@ library.defineWidgetAreas = function(areas, callback) {
 			name: "Topic Footer",
 			template: "topic.tpl",
 			location: "footer"
+		},
+		{
+			name: "Account Header",
+			template: "account/profile.tpl",
+			location: "header"
+		},
+		{
+			name: "Users Header",
+			template: "users.tpl",
+			location: "header"
+		},
+		{
+			name: "Tags Header",
+			template: "tags.tpl",
+			location: "header"
+		},
+		{
+			name: "Tag Header",
+			template: "tag.tpl",
+			location: "header"
 		}
 	]);
 

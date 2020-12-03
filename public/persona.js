@@ -30,31 +30,47 @@ $(document).ready(function () {
 		}
 	}
 
+	var lastBSEnv = '';
 	function configureNavbarHiding() {
 		if (!$.fn.autoHidingNavbar) {
 			return;
 		}
-
+		var env = utils.findBootstrapEnvironment();
+		// if env didn't change don't destroy and recreate
+		if (env === lastBSEnv) {
+			return;
+		}
+		lastBSEnv = env;
 		var navbarEl = $(".navbar-fixed-top");
-		navbarEl.autoHidingNavbar('destroy');
+		navbarEl.autoHidingNavbar('destroy').removeData('plugin_autoHidingNavbar');
 		navbarEl.css('top', '');
 
-		var env = utils.findBootstrapEnvironment();
 		if (env === 'xs' || env === 'sm') {
 			navbarEl.autoHidingNavbar({
 				showOnBottom: false,
 			});
 		}
-		navbarEl.on('show.autoHidingNavbar', function() {
+
+		function fixTopCss(topValue) {
 			if (ajaxify.data.template.topic) {
-				$('.topic .topic-header').css({top: '' });
+				$('.topic .topic-header').css({top: topValue });
+			} else {
+				var topicListHeader = $('.topic-list-header');
+				if (topicListHeader.length) {
+					topicListHeader.css({ top: topValue });
+				}
 			}
-		});
-		navbarEl.on('hide.autoHidingNavbar', function() {
-			if (ajaxify.data.template.topic) {
-				$('.topic .topic-header').css('top', '0px');
-			}
-		});
+		}
+
+		navbarEl.off('show.autoHidingNavbar')
+			.on('show.autoHidingNavbar', function() {
+				fixTopCss('');
+			});
+
+		navbarEl.off('hide.autoHidingNavbar')
+			.on('hide.autoHidingNavbar', function() {
+				fixTopCss('0px');
+			});
 	}
 
 	function setupNProgress() {
