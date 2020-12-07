@@ -92,7 +92,7 @@
 			</div>
 		</div>
 
-		<div class="col-md-3 col-sm-3 teaser hidden-xs" component="topic/teaser">
+		<div class="col-md-3 col-sm-3 teaser hidden-xs" component="topic/teaser" data-tid="{topics.tid}">
 			<div class="card" style="border-color: {topics.category.bgColor}">
 				<!-- IF topics.unreplied -->
 				<p>
@@ -100,13 +100,13 @@
 				</p>
 				<!-- ELSE -->
 				<!-- IF topics.teaser.pid -->
-				<!-- <p>
-					<a href="{config.relative_path}/user/{topics.teaser.user.userslug}">{buildAvatar(topics.teaser.user, "24", true, "not-responsive")}</a>
-					<a class="permalink" href="{config.relative_path}/topic/{topics.slug}/{topics.teaser.index}">
-						<span class="timeago" title="{topics.teaser.timestampISO}"></span>
-					</a>
-				</p> -->
-				<div class="post-content">
+				<div class="text-center">
+					<a href="https://github.com/pnlpal/dictionaries" target="_blank" rel="nofollow" 
+						data-tid="{topics.tid}"
+						class="btn btn-default add-to-dictionariez hidden">Add to Dictionariez</a>
+				</div>
+
+				<div class="post-content hidden">
 					{topics.teaser.content}
 				</div>
 				<!-- ENDIF topics.teaser.pid -->
