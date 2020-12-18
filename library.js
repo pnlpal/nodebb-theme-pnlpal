@@ -6,6 +6,7 @@ var user = require.main.require('./src/user');
 var library = {};
 
 require('./external')(library);
+require('./captionz')(library);
 
 library.init = function(params, callback) {
 	var app = params.router;
@@ -14,6 +15,8 @@ library.init = function(params, callback) {
 	app.get('/admin/plugins/pnlpal', middleware.admin.buildHeader, renderAdmin);
 	app.get('/api/admin/plugins/pnlpal', renderAdmin);
 
+	app.get('/api/captionz/tracks/:vid', library.getCaptionTracks);
+	app.post('/api/captionz/caption', library.getCaption);
 	callback();
 };
 
