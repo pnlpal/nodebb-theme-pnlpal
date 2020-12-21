@@ -81,19 +81,23 @@
 						<!-- ELSE -->
 							<i class="fa fa-heart-o"></i>
 						<!-- END -->
+						<span class="human-readable-number" component="post/vote-count" title="{topics.votes}">{topics.votes}</span>
 					</a>
-					<span class="human-readable-number" component="post/vote-count" title="{topics.votes}">{topics.votes}</span>
 					<!-- END -->
 				</div>
 		
 				<div class="col-xs-4 stats stats-postcount">
-					<i class="fa fa-comment-o"></i>
-					<span class="human-readable-number" title="{topics.postcount}">{topics.postcount}</span>
+					<a href="{config.relative_path}/compose?tid={topics.tid}" class="text-muted">
+						<i class="fa fa-comment-o"></i>
+						<span class="human-readable-number" title="{topics.postcount}">{topics.postcount}</span>
+					</a>
 				</div>
 		
 				<div class="col-xs-4 stats stats-viewcount">
-					<i class="fa fa-eye"></i>
-					<span class="human-readable-number" title="{topics.viewcount}">{topics.viewcount}</span>
+					<a href="{config.relative_path}/topic/{topics.slug}" class="text-muted">
+						<i class="fa fa-eye"></i>
+						<span class="human-readable-number" title="{topics.viewcount}">{topics.viewcount}</span>
+					</a>
 				</div>
 			</div>
 		</div>
