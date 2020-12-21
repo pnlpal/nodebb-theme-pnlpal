@@ -1,5 +1,5 @@
 const request = require.main.require('request-promise-native');
-const validator = require.main.require('validator');
+const winston = require.main.require('winston');
 
 module.exports = function (library) {
     library.getCaptionTracks = async function (req, res) {
@@ -12,6 +12,7 @@ module.exports = function (library) {
             const { captionTracks } = JSON.parse(`${match}}`);
             return res.json({ captionTracks });
         } catch (error) {
+            winston.error(error);
             res.status(500).json({ error: error.message });
         }
     }
@@ -25,6 +26,7 @@ module.exports = function (library) {
             }
             return res.json({});
         } catch (error) {
+            winston.error(error);
             res.status(500).json({ error: error.message });
         }
 	};

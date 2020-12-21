@@ -1,5 +1,6 @@
 const request = require.main.require('request-promise-native');
 const validator = require.main.require('validator');
+const Posts = require.main.require('./src/posts');
 
 module.exports = function (library) {
     library.setExternalLinkOnSaveTopic = function(obj, callback){
@@ -22,5 +23,15 @@ module.exports = function (library) {
 			}
 		}
 		return callback(null, obj);
+	};
+
+	library.onGetTopics = async function ({ topics, uid }) {
+		const pids = topics.map(n => n.mainPid);
+		const voteData = await Posts.getVoteStatusByPostIDs(pids, uid);
+
+		topics.forEach((n, i) => {
+			n.upvoted = voteData.upvotes[i]
+		});
+		return { topics, uid };
 	};
 }

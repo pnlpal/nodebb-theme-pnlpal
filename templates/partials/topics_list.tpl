@@ -72,11 +72,17 @@
 				</small>
 			</h2>
 
-			<div class="stats-row">
+			<div class="stats-row" data-pid="{topics.mainPid}">
 				<div class="col-xs-4 stats stats-votes">
 					<!-- IF !reputation:disabled -->
-					<i class="fa fa-heart-o"></i>
-					<span class="human-readable-number" title="{topics.votes}">{topics.votes}</span>
+					<a href="" class="upvote text-muted" component="post/upvote" data-upvoted="{topics.upvoted}">
+						<!-- IF topics.upvoted -->
+							<i class="fa fa-heart"></i>
+						<!-- ELSE -->
+							<i class="fa fa-heart-o"></i>
+						<!-- END -->
+					</a>
+					<span class="human-readable-number" component="post/vote-count" title="{topics.votes}">{topics.votes}</span>
 					<!-- END -->
 				</div>
 		

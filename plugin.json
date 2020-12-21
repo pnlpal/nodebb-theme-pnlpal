@@ -9,10 +9,12 @@
 		{ "hook": "filter:topic.build", "method": "addUserToTopic" }, 
 
 		{ "hook": "filter:topic.create", "method": "setExternalLinkOnSaveTopic" }, 
-		{ "hook": "filter:topic.edit", "method": "setExternalLinkOnSaveTopic" }
+		{ "hook": "filter:topic.edit", "method": "setExternalLinkOnSaveTopic" },
+		{ "hook": "filter:topics.get", "method": "onGetTopics" }
 	],
 	"scripts": [
 		"public/persona.js",
+		"public/pnlpal.js",
 		"public/modules/autohidingnavbar.js",
 		"public/modules/quickreply.js"
 	],

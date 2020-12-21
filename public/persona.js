@@ -19,32 +19,8 @@ $(document).ready(function () {
 	$(window).on('action:app.load', function () {
 		setupTaskbar();
 		setupMobileMenu();
-		setupDictionariezTrove();
 	});
-
-	function setupDictionariezTrove() {
-		const categoryName = 'Dictionariez Trove';
-
-		$(window).on('action:topics.loaded', function(ev, res) {
-			if (res && res.topics) {
-				res.topics.forEach(topic => {
-					const $div = $(`div[component="topic/teaser"][data-tid="${topic.tid}"]`);
-
-					if (topic.category.name === categoryName) {
-						$div.find('.add-to-dictionariez').removeClass('hidden');
-					} else {
-						$div.find('.post-content').removeClass('hidden');
-					}
-				});
-			}
-		});
-		$(window).on('action:topic.loaded', function(ev, topic) {
-			if (topic.category && topic.category.name === categoryName) {
-				$('.topic .add-to-dictionariez').removeClass('hidden');
-			}
-		});
-	}
-
+	
 	function fixHeaderPadding() {
 		var env = utils.findBootstrapEnvironment();
 		if (env === 'sm' || env === 'xs' || env === 'md') {
