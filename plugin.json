@@ -10,7 +10,8 @@
 
 		{ "hook": "filter:topic.create", "method": "setExternalLinkOnSaveTopic" }, 
 		{ "hook": "filter:topic.edit", "method": "setExternalLinkOnSaveTopic" },
-		{ "hook": "filter:topics.get", "method": "onGetTopics" }
+		{ "hook": "filter:topics.get", "method": "onGetTopics" },
+		{ "hook": "filter:parse.post", "method": "parsePost", "priority": 6 }
 	],
 	"scripts": [
 		"public/persona.js",

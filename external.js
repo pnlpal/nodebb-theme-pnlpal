@@ -12,8 +12,12 @@ module.exports = function (library) {
 				return callback(new Error('[[pnlpal:url-not-right]]'));
 			}
 			// save externalLink and externalComment passed from api call, see nodebb-plugin-blog-comments2
-            obj.topic.externalLink = obj.data.externalLink;
-            
+			obj.topic.externalLink = obj.data.externalLink;
+
+			if (obj.data.cid == 5 && obj.topic.externalLink.match(/(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/)/)) { // YouTube Trove
+				if (!obj.data.content.includes(obj.topic.externalLink)) 
+					obj.data.content = obj.topic.externalLink +'\n\n' + obj.data.content;
+			}
 		} else {
 			var line = groups[0].trim();
 			if (validator.isURL(line)) {

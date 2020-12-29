@@ -1,5 +1,7 @@
 const request = require.main.require('request-promise-native');
 const winston = require.main.require('winston');
+const Posts = require.main.require('./src/posts');
+
 
 module.exports = function (library) {
     library.getCaptionTracks = async function (req, res) {
@@ -29,5 +31,33 @@ module.exports = function (library) {
             winston.error(error);
             res.status(500).json({ error: error.message });
         }
+    };
+    
+    library.parsePost = async function(data) {
+        // regex: /(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|playlist)(?:\.php)?(?:\?.*(v|list)=|\/))([a-zA-Z0-9\_-]+)/
+        // this regex supports YouTube playlist and video link, like:
+        //      https://www.youtube.com/watch?v=kBdfcR-8hEY&playnext=1&list=PL30C13C91CFFEFEA6
+        //      https://youtu.be/kBdfcR-8hEY
+        //      https://www.youtube.com/watch?list=PL30C13C91CFFEFEA6
+        //      https://www.youtube.com/playlist?list=PLPfJBj_vOSGxjbYrCyq1UYv0dGGZ5Y-fv
+
+        if (data && data.postData && data.postData.pid) {
+            // console.log('parsePost: ', data.postData);
+            var cid = await Posts.getCidByPid(data.postData.pid);
+
+            if (cid == 5) { // only in Captionz Trove
+                var regularUrl = /<a href="((?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|playlist)(?:\.php)?(?:\?.*(v|list)=|\/))([a-zA-Z0-9\_-]+)[^"]*)".*?>.+?<\/a>/
+                var postContent = data.postData.content;
+                
+                var embed = "<div class='embed-captionz'><iframe src='/captionz-ii?link=<link>' width='100%' frameborder='0' onload='this.style.height=(this.contentWindow.document.body.scrollHeight+20)+\"px\";' allowfullscreen></iframe></div>";
+
+                if (postContent && postContent.match(regularUrl)) {
+                    data.postData.content = postContent.replace(regularUrl, embed.replace('<link>', encodeURIComponent(postContent.match(regularUrl)[1])));
+                    // console.log(data.postData)
+                }
+            }
+        }
+
+		return data;
 	};
 }
