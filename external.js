@@ -57,6 +57,9 @@ module.exports = function (library) {
 
 		topics.forEach((n, i) => {
 			n.upvoted = voteData.upvotes[i]
+			if (n.cid == 4 && n.tid != 52) {
+				n.isDictionariezTrove = true;
+			}
 		});
 		return { topics, uid };
 	};

@@ -110,15 +110,17 @@
 				</p>
 				<!-- ELSE -->
 				<!-- IF topics.teaser.pid -->
-				<div class="text-center">
-					<a href="https://github.com/pnlpal/dictionaries" target="_blank" rel="nofollow" 
-						data-tid="{topics.tid}"
-						class="btn btn-default add-to-dictionariez hidden">Add to Dictionariez</a>
-				</div>
-
-				<div class="post-content hidden">
-					{topics.teaser.content}
-				</div>
+					<!-- IF topics.isDictionariezTrove -->
+						<div class="text-center">
+							<a href="https://github.com/pnlpal/dictionaries" target="_blank" rel="nofollow" 
+								data-tid="{topics.tid}"
+								class="btn btn-default add-to-dictionariez">Add to Dictionariez</a>
+						</div>
+					<!-- ELSE -->
+						<div class="post-content">
+							{topics.teaser.content}
+						</div>
+					<!-- ENDIF topics.isDictionariezTrove -->
 				<!-- ENDIF topics.teaser.pid -->
 				<!-- ENDIF topics.unreplied -->
 			</div>

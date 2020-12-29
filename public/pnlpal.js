@@ -1,6 +1,4 @@
 $(window).on('action:app.load', function () {
-    setupDictionariezTrove();
-    
     let inited = false;
     $(window).on('action:topics.loaded', function(ev, res) {
         if (!inited) {
@@ -10,28 +8,6 @@ $(window).on('action:app.load', function () {
     });
 });
 
-function setupDictionariezTrove() {
-    const categoryName = 'Dictionariez Trove';
-
-    $(window).on('action:topics.loaded', function(ev, res) {
-        if (res && res.topics) {
-            res.topics.forEach(topic => {
-                const $div = $(`div[component="topic/teaser"][data-tid="${topic.tid}"]`);
-
-                if (topic.category.name === categoryName) {
-                    $div.find('.add-to-dictionariez').removeClass('hidden');
-                } else {
-                    $div.find('.post-content').removeClass('hidden');
-                }
-            });
-        }
-    });
-    $(window).on('action:topic.loaded', function(ev, topic) {
-        if (topic.category && topic.category.name === categoryName) {
-            $('.topic .add-to-dictionariez').removeClass('hidden');
-        }
-    });
-}
 
 function setupVote() {
     require(['api'], function (api) {
