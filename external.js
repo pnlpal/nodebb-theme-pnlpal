@@ -79,6 +79,13 @@ module.exports = function (library) {
 				content: 'https://i.ytimg.com/vi/' + templateData.videoId + '/hqdefault.jpg',
 				noEscape: true,
 			});
+
+			// change the first meta image, because Facebook read the first one.
+			const firstImage = res.locals.metaTags.find(n =>n.property === 'og:image');
+			if (firstImage) firstImage.content = 'https://i.ytimg.com/vi/' + templateData.videoId + '/hqdefault.jpg';
+			const firstImageUrl = res.locals.metaTags.find(n =>n.property === 'og:image:url');
+			if (firstImageUrl) firstImageUrl.content = 'https://i.ytimg.com/vi/' + templateData.videoId + '/hqdefault.jpg';
+			 
 		}
 		return { res, templateData }
 	};
