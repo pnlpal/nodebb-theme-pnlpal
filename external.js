@@ -1,4 +1,4 @@
-const request = require.main.require('request-promise-native');
+﻿const request = require.main.require('request-promise-native');
 const validator = require.main.require('validator');
 const Posts = require.main.require('./src/posts');
 
@@ -42,13 +42,14 @@ module.exports = function (library) {
 
 				obj.topic.videoId = parsed.videoId;
 				obj.topic.playlistId = parsed.playlistId;
-				obj.topic.videoThumb = 'https://i.ytimg.com/vi/' + parsed.videoId + '/hqdefault.jpg';
+				obj.topic.thumb = 'https://i.ytimg.com/vi/' + parsed.videoId + '/hqdefault.jpg';
 				
 				if (!obj.data.content.includes(obj.topic.externalLink)) 
 					obj.data.content = obj.topic.externalLink +'\n\n' + obj.data.content;
 			}
 		}
 		return callback(null, obj);
+		
 	};
 
 	library.onGetTopics = async function ({ topics, uid }) {
@@ -60,6 +61,7 @@ module.exports = function (library) {
 			if (n.cid == 4 && n.tid != 52) {
 				n.isDictionariezTrove = true;
 			}
+			if (n.videoThumb) n.thumb = n.videoThumb;  // fix the old deprecated data structure.
 		});
 		return { topics, uid };
 	};

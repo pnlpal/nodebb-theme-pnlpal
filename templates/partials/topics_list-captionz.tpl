@@ -7,9 +7,9 @@
 
 		<div class="col-md-12 col-sm-12 col-xs-12 content">
 			<div class="pull-left">
-				<!-- IF topics.videoThumb -->
+				<!-- IF topics.thumb -->
 				<a href="{config.relative_path}/topic/{topics.slug}<!-- IF topics.bookmark -->/{topics.bookmark}<!-- ENDIF topics.bookmark -->" itemprop="url" class="video-thumb">
-					<img src="{topics.videoThumb}" class="user-img not-responsive" />
+					<img src="{topics.thumb}" class="user-img not-responsive" />
 					<!-- IF topics.playlistId -->
 					<i class="fa fa-fw fa-list" data-content=""></i>
 					<!-- ENDIF topics.playlistId -->
@@ -18,7 +18,7 @@
 				<a href="<!-- IF topics.user.userslug -->{config.relative_path}/user/{topics.user.userslug}<!-- ELSE -->#<!-- ENDIF topics.user.userslug -->" class="user-avatar">
 					{buildAvatar(topics.user, "46", true, "not-responsive")}
 				</a>
-				<!-- ENDIF topics.videoThumb -->
+				<!-- ENDIF topics.thumb -->
 			</div>
 
 			<h2 component="topic/header" class="title">

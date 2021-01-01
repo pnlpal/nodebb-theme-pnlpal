@@ -9,11 +9,7 @@
 			<div class="avatar pull-left">
 				<!-- IF showSelect -->
 				<div class="select" component="topic/select">
-					<!-- IF topics.thumb -->
-					<img src="{topics.thumb}" class="user-img not-responsive" />
-					<!-- ELSE -->
 					{buildAvatar(topics.user, "46", true, "not-responsive")}
-					<!-- ENDIF topics.thumb -->
 					<i class="fa fa-check"></i>
 				</div>
 				<!-- ENDIF showSelect -->
