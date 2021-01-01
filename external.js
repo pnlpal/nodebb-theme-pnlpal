@@ -43,8 +43,8 @@ module.exports = function (library) {
 				obj.topic.videoId = parsed.videoId;
 				obj.topic.playlistId = parsed.playlistId;
 
-				// somehow NodeBB is going to escape this url, so I have to unescape it when render the topic;
-				obj.topic.thumb = 'https://i.ytimg.com/vi/' + parsed.videoId + '/hqdefault.jpg';
+				// somehow NodeBB is going to escape thumb, so I have to use another name videoThumb;
+				obj.topic.videoThumb = 'https://i.ytimg.com/vi/' + parsed.videoId + '/hqdefault.jpg';
 				
 				if (!obj.data.content.includes(obj.topic.externalLink)) 
 					obj.data.content = obj.topic.externalLink +'\n\n' + obj.data.content;
@@ -63,22 +63,19 @@ module.exports = function (library) {
 			if (n.cid == 4 && n.tid != 52) {
 				n.isDictionariezTrove = true;
 			}
-			if (n.videoThumb) n.thumb = n.videoThumb;  // fix the old deprecated data structure.
 		});
 		return { topics, uid };
 	};
 
-	library.onGetTopic = async function ({ topic }) {
-		if (topic.videoId) {
-			// somehow NodeBB escaped this url, so I have to unescape it when render the topic;
-			topic.thumb = 'https://i.ytimg.com/vi/' + topic.videoId + '/hqdefault.jpg';
-		}
-		return { topic };
-	};
 	library.onRenderTopic = async function ({ res, templateData }) {
 		if (templateData.videoId) {
 			res.locals.metaTags.push({
 				property: 'twitter:image',
+				content: 'https://i.ytimg.com/vi/' + templateData.videoId + '/hqdefault.jpg',
+				noEscape: true,
+			});
+			res.locals.metaTags.push({
+				property: 'og:image',
 				content: 'https://i.ytimg.com/vi/' + templateData.videoId + '/hqdefault.jpg',
 				noEscape: true,
 			});
