@@ -42,6 +42,8 @@ module.exports = function (library) {
 
 				obj.topic.videoId = parsed.videoId;
 				obj.topic.playlistId = parsed.playlistId;
+
+				// somehow NodeBB is going to escape this url, so I have to unescape it when render the topic;
 				obj.topic.thumb = 'https://i.ytimg.com/vi/' + parsed.videoId + '/hqdefault.jpg';
 				
 				if (!obj.data.content.includes(obj.topic.externalLink)) 
@@ -49,7 +51,7 @@ module.exports = function (library) {
 			}
 		}
 		return callback(null, obj);
-		
+
 	};
 
 	library.onGetTopics = async function ({ topics, uid }) {
@@ -64,5 +66,23 @@ module.exports = function (library) {
 			if (n.videoThumb) n.thumb = n.videoThumb;  // fix the old deprecated data structure.
 		});
 		return { topics, uid };
+	};
+
+	library.onGetTopic = async function ({ topic }) {
+		if (topic.videoId) {
+			// somehow NodeBB escaped this url, so I have to unescape it when render the topic;
+			topic.thumb = 'https://i.ytimg.com/vi/' + topic.videoId + '/hqdefault.jpg';
+		}
+		return { topic };
+	};
+	library.onRenderTopic = async function ({ res, templateData }) {
+		if (templateData.videoId) {
+			res.locals.metaTags.push({
+				property: 'twitter:image',
+				content: 'https://i.ytimg.com/vi/' + templateData.videoId + '/hqdefault.jpg',
+				noEscape: true,
+			});
+		}
+		return { res, templateData }
 	};
 }
