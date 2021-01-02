@@ -54,6 +54,13 @@
 				{{{ if !feeds:disableRSS }}}
 				{{{ if rssFeedUrl }}}<a class="hidden-xs" target="_blank" href="{rssFeedUrl}"><i class="fa fa-rss-square"></i></a>{{{ end }}}
 				{{{ end }}}
+
+				<a class="need-share-button hidden-xs" href=""
+				title="If you like this post, share it. It really helps!"
+				data-share-networks="Twitter,Pinterest,Facebook,Reddit,Linkedin,Tumblr,mailto,Evernote,Wechat,Douban"
+				>
+					<i class="fa fa-share-alt"></i>
+				</a>
 				<!-- IMPORT partials/topic/browsing-users.tpl -->
 
 				<!-- IMPORT partials/post_bar.tpl -->
