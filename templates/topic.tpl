@@ -24,12 +24,14 @@
 					{title}
 					<!-- ENDIF externalLink -->
 				</span>
-
+				
+				<!-- IF category.isDictionariezTrove -->
 				<div class="pull-right">
 					<a href="https://github.com/pnlpal/dictionaries" target="_blank" rel="nofollow" 
 						data-tid="{tid}"
-						class="btn btn-sm btn-info add-to-dictionariez hidden">Add to Dictionariez</a>
+						class="btn btn-sm btn-info add-to-dictionariez">Add to Dictionariez</a>
 				</div>
+				<!-- END -->
 			</h1>
 
 			<div class="topic-info clearfix">

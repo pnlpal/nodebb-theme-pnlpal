@@ -14,7 +14,7 @@
 		{ "hook": "filter:topic.build", "method": "onRenderTopic" }, 
 		{ "hook": "filter:parse.post", "method": "parsePost", "priority": 6 },
 
-		{ "hook": "filter:category.get", "method": "onGetCategory" }
+		{ "hook": "filter:category.getFields", "method": "onGetCategory" }
 	],
 	"scripts": [
 		"public/persona.js",

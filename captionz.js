@@ -5,11 +5,13 @@ const Posts = require.main.require('./src/posts');
 
 module.exports = function (library) {
     library.onGetCategory = function (data, callback) {
-        if (data.category.cid == 4) {
-            data.category.isDictionariezTrove = true;
-        } else if (data.category.cid == 5) {
-            data.category.isCaptionzTrove = true;
-        }
+        data.categories.forEach(category => {
+            if (category.cid == 4) {
+                category.isDictionariezTrove = true;
+            } else if (category.cid == 5) {
+                category.isCaptionzTrove = true;
+            }
+        });
         return callback(null, data);
     },
     library.getCaptionTracks = async function (req, res) {
