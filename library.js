@@ -43,6 +43,11 @@ library.defineWidgetAreas = function(areas, callback) {
 			location: "sidebar"
 		},
 		{
+			name: "Category Left",
+			template: "category.tpl",
+			location: "left"
+		},
+		{
 			name: "Topic Sidebar",
 			template: "topic.tpl",
 			location: "sidebar"

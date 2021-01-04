@@ -5,7 +5,13 @@
 </div>
 
 <div class="row">
-	<div class="category <!-- IF widgets.sidebar.length -->col-lg-9 col-md-9 col-sm-12<!-- ELSE -->col-lg-12<!-- ENDIF widgets.sidebar.length -->">
+	<div data-widget-area="left" class="category-left col-lg-3 col-md-3 col-sm-3 hidden-xs">
+		{{{each widgets.left}}}
+		{{widgets.left.html}}
+		{{{end}}}
+	</div>
+
+	<div class="category <!-- IF widgets.sidebar.length -->col-lg-6 col-md-6 col-sm-6<!-- ELSE -->col-lg-9 col-md-9 col-sm-9<!-- ENDIF widgets.sidebar.length -->">
 		<!-- IF !topics.length -->
 		<hr class="visible-xs" />
 		<div class="alert alert-warning" id="category-no-topics">
