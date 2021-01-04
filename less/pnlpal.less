@@ -2,8 +2,27 @@
     position: sticky;
     top: 71px;
 }
+.breadcrumb > li {
+    overflow: initial;
+}
 
 .category {
+    .breadcrumb {
+        border: 1px solid #eeeeee;
+        margin-bottom: 10px;
+        padding: 5px 15px;
+        height: 40px;
+
+        > li {
+            display: none;
+            &:before {
+                display: none;
+            }
+            &:last-child {
+                display: inline-block;
+            }
+        }
+    }
     > ul {
         > li {
             border: 1px solid #eeeeee;

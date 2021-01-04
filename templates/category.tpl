@@ -1,9 +1,3 @@
-<div data-widget-area="header">
-	{{{each widgets.header}}}
-	{{widgets.header.html}}
-	{{{end}}}
-</div>
-
 <div class="row">
 	<div data-widget-area="left" class="category-left col-lg-3 col-md-3 col-sm-3 hidden-xs">
 		{{{each widgets.left}}}
@@ -12,6 +6,10 @@
 	</div>
 
 	<div class="category <!-- IF widgets.sidebar.length -->col-lg-6 col-md-6 col-sm-6<!-- ELSE -->col-lg-9 col-md-9 col-sm-9<!-- ENDIF widgets.sidebar.length --> <!-- IF isCaptionzTrove --> captionz-trove <!-- END --> <!-- IF isDictionariezTrove --> dictionariez-trove <!-- END -->">
+		<div class="row">
+			<!-- IMPORT partials/breadcrumbs.tpl -->
+		</div>
+
 		<!-- IF !topics.length -->
 		<hr class="visible-xs" />
 		<div class="alert alert-warning" id="category-no-topics">
