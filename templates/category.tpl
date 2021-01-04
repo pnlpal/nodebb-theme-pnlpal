@@ -11,7 +11,7 @@
 		{{{end}}}
 	</div>
 
-	<div class="category <!-- IF widgets.sidebar.length -->col-lg-6 col-md-6 col-sm-6<!-- ELSE -->col-lg-9 col-md-9 col-sm-9<!-- ENDIF widgets.sidebar.length -->">
+	<div class="category <!-- IF widgets.sidebar.length -->col-lg-6 col-md-6 col-sm-6<!-- ELSE -->col-lg-9 col-md-9 col-sm-9<!-- ENDIF widgets.sidebar.length --> <!-- IF isCaptionzTrove --> captionz-trove <!-- END --> <!-- IF isDictionariezTrove --> dictionariez-trove <!-- END -->">
 		<!-- IF !topics.length -->
 		<hr class="visible-xs" />
 		<div class="alert alert-warning" id="category-no-topics">
@@ -19,11 +19,7 @@
 		</div>
 		<!-- ENDIF !topics.length -->
 		
-		<!-- IF isCaptionzTrove -->
-			<!-- IMPORT partials/topics_list-captionz.tpl -->
-		<!-- ELSE -->
-			<!-- IMPORT partials/topics_list.tpl -->
-		<!-- ENDIF isCaptionzTrove -->
+		<!-- IMPORT partials/topics_list.tpl -->
 
 		<!-- IF config.usePagination -->
 			<!-- IMPORT partials/paginator.tpl -->

@@ -5,24 +5,24 @@
 		<a id="{../index}" data-index="{../index}" component="topic/anchor"></a>
 		<meta itemprop="name" content="{function.stripTags, title}">
 
-		<div class="col-md-9 col-sm-9 col-xs-12 content">
+		<div class="col-md-12 col-sm-12 col-xs-12 content">
 			<div class="avatar pull-left">
-				<!-- IF showSelect -->
-				<div class="select" component="topic/select">
-					{buildAvatar(topics.user, "46", true, "not-responsive")}
-					<i class="fa fa-check"></i>
-				</div>
-				<!-- ENDIF showSelect -->
-
-				<!-- IF !showSelect -->
-				<a href="<!-- IF topics.user.userslug -->{config.relative_path}/user/{topics.user.userslug}<!-- ELSE -->#<!-- ENDIF topics.user.userslug -->" class="pull-left">
+				<!-- IF topics.videoThumb -->
+				<a href="{config.relative_path}/topic/{topics.slug}" itemprop="url" class="video-thumb">
+					<img src="{topics.videoThumb}" class="user-img not-responsive" />
+					<!-- IF topics.playlistId -->
+					<i class="fa fa-fw fa-list" data-content=""></i>
+					<!-- ENDIF topics.playlistId -->
+				</a>
+				<!-- ELSE -->
+				<a href="<!-- IF topics.user.userslug -->{config.relative_path}/user/{topics.user.userslug}<!-- ELSE -->#<!-- ENDIF topics.user.userslug -->" class="user-avatar">
 					<!-- IF topics.thumb -->
 					<img src="{topics.thumb}" class="user-img not-responsive" />
 					<!-- ELSE -->
 					{buildAvatar(topics.user, "46", true, "not-responsive")}
 					<!-- ENDIF topics.thumb -->
 				</a>
-				<!-- ENDIF !showSelect -->
+				<!-- ENDIF topics.videoThumb -->
 			</div>
 
 			<h2 component="topic/header" class="title">
@@ -38,7 +38,7 @@
 					</a>
 					<!-- ENDIF topics.externalLink -->
 
-					<a href="{config.relative_path}/topic/{topics.slug}<!-- IF topics.bookmark -->/{topics.bookmark}<!-- ENDIF topics.bookmark -->" itemprop="url">{topics.title}</a><br />
+					<a class="topic-title" href="{config.relative_path}/topic/{topics.slug}<!-- IF topics.bookmark -->/{topics.bookmark}<!-- ENDIF topics.bookmark -->" itemprop="url">{topics.title}</a><br />
 				<!-- ELSE -->
 				<span>{topics.title}</span><br />
 				<!-- ENDIF !topics.noAnchor -->
@@ -48,6 +48,20 @@
 					<a href="{config.relative_path}/category/{topics.category.slug}"><span class="fa-stack fa-lg" style="{function.generateCategoryBackground, topics.category}"><i style="color:{topics.category.color};" class="fa {topics.category.icon} fa-stack-1x"></i></span> {topics.category.name}</a> &bull;
 				</small> -->
 				<!-- ENDIF !template.category -->
+				
+				<div class="text-center dictionariez-btn-wrapper hidden-xs">
+					<a href="https://github.com/pnlpal/dictionaries" target="_blank" rel="nofollow" 
+						data-tid="{topics.tid}"
+						class="btn btn-sm btn-default add-to-dictionariez">Add to Dictionariez</a>
+				</div>
+
+				<div class="post-content-wrapper">
+					<div>
+						{topics.teaser.content}
+					</div>
+					<a href="{config.relative_path}/topic/{topics.slug}" class="fade-effect">
+					</a>
+				</div>
 
 				<!-- IF topics.tags.length -->
 				<span class="tag-list hidden-xs">
@@ -95,30 +109,6 @@
 						<span class="human-readable-number" title="{topics.viewcount}">{topics.viewcount}</span>
 					</a>
 				</div>
-			</div>
-		</div>
-
-		<div class="col-md-3 col-sm-3 teaser hidden-xs" component="topic/teaser" data-tid="{topics.tid}">
-			<div class="card" style="border-color: {topics.category.bgColor}">
-				<!-- IF topics.unreplied -->
-				<p>
-					[[category:no_replies]]
-				</p>
-				<!-- ELSE -->
-				<!-- IF topics.teaser.pid -->
-					<!-- IF topics.isDictionariezTrove -->
-						<div class="text-center">
-							<a href="https://github.com/pnlpal/dictionaries" target="_blank" rel="nofollow" 
-								data-tid="{topics.tid}"
-								class="btn btn-default add-to-dictionariez">Add to Dictionariez</a>
-						</div>
-					<!-- ELSE -->
-						<div class="post-content">
-							{topics.teaser.content}
-						</div>
-					<!-- ENDIF topics.isDictionariezTrove -->
-				<!-- ENDIF topics.teaser.pid -->
-				<!-- ENDIF topics.unreplied -->
 			</div>
 		</div>
 	</li>
