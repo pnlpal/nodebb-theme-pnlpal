@@ -12,6 +12,7 @@
 		{ "hook": "filter:topic.edit", "method": "setExternalLinkOnSaveTopic" },
 		{ "hook": "filter:topics.get", "method": "onGetTopics" },
 		{ "hook": "filter:topic.build", "method": "onRenderTopic" }, 
+		{ "hook": "filter:captionz.build", "method": "onRenderCaptionz" },
 		{ "hook": "filter:parse.post", "method": "parsePost", "priority": 6 },
 
 		{ "hook": "filter:category.getFields", "method": "onGetCategory" }
