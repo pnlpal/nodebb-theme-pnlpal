@@ -70,20 +70,4 @@ module.exports = function (library) {
 
 		return data;
     };
-    
-    library.onRenderCaptionz = async function ({ res, templateData }) {
-        // change the first meta image, because Facebook read the first one.
-        res.locals.metaTags = [
-            {
-                property: 'og:title',
-                content: 'Captionz - Watch YouTube with dual captions, A-B repeat and more'
-            },
-            {
-                property: 'og:description',
-                content: 'A site that helps you watch YouTube with more fun, learn languages more efficiently.'
-            }
-        ];
-			 
-		return { res, templateData }
-	};
 }

@@ -89,4 +89,39 @@ module.exports = function (library) {
 		}
 		return { res, templateData }
 	};
+
+	library.onRenderCaptionz = async function ({ req, res, templateData }) {
+        res.locals.metaTags = [
+            {
+                property: 'og:title',
+                content: "Captionz - Programming N' Language"
+            },
+            {
+                property: 'og:description',
+                content: 'Captionz is a space to watch YouTube videos with dual captions, A-B repeat and more. Join our pnlpal community!'
+            }
+		];
+		if (req.query.link) {
+			var parsed = parseYtbUrl(req.query.link);
+			if (parsed.videoId) {
+				res.locals.metaTags.push({
+					property: 'twitter:image',
+					content: 'https://i.ytimg.com/vi/' + parsed.videoId + '/hqdefault.jpg',
+					noEscape: true,
+				});
+				res.locals.metaTags.push({
+					property: 'og:image',
+					content: 'https://i.ytimg.com/vi/' + parsed.videoId + '/hqdefault.jpg',
+					noEscape: true,
+				});
+				res.locals.metaTags.push({
+					property: 'og:image:url',
+					content: 'https://i.ytimg.com/vi/' + parsed.videoId + '/hqdefault.jpg',
+					noEscape: true,
+				});
+			}
+		}
+			 
+		return { res, templateData }
+	};
 }
