@@ -83,7 +83,7 @@
 			</h2>
 
 			<div class="stats-row" data-pid="{topics.mainPid}">
-				<div class="col-xs-4 stats stats-votes">
+				<div class="col-xs-4 col-sm-3 stats stats-votes">
 					<!-- IF !reputation:disabled -->
 					<a href="" class="upvote text-muted" component="post/upvote" data-upvoted="{topics.upvoted}">
 						<!-- IF topics.upvoted -->
@@ -96,17 +96,25 @@
 					<!-- END -->
 				</div>
 		
-				<div class="col-xs-4 stats stats-postcount">
+				<div class="col-xs-4 col-sm-3 stats stats-postcount">
 					<a href="{config.relative_path}/compose?tid={topics.tid}" class="text-muted">
 						<i class="fa fa-comment-o"></i>
 						<span class="human-readable-number" title="{topics.postcount}">{topics.postcount}</span>
 					</a>
 				</div>
 		
-				<div class="col-xs-4 stats stats-viewcount">
+				<div class="col-xs-4 col-sm-3 stats stats-viewcount">
 					<a href="{config.relative_path}/topic/{topics.slug}" class="text-muted">
 						<i class="fa fa-eye"></i>
 						<span class="human-readable-number" title="{topics.viewcount}">{topics.viewcount}</span>
+					</a>
+				</div>
+
+				<div class="hidden-xs col-sm-3 stats stats-share">
+					<a href="" data-share-url="{config.relative_path}/topic/{topics.slug}" class="text-muted need-share-button"
+					title="If you like this post, share it. It really helps!"
+					data-share-networks="Twitter,Pinterest,Facebook,Reddit,Linkedin,Tumblr,mailto,Evernote,Wechat,Douban">
+						<i class="fa fa-share-alt"></i>
 					</a>
 				</div>
 			</div>
