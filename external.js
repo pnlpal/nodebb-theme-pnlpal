@@ -59,9 +59,14 @@ module.exports = function (library) {
 		const voteData = await Posts.getVoteStatusByPostIDs(pids, uid);
 
 		topics.forEach((n, i) => {
-			n.upvoted = voteData.upvotes[i]
+			n.upvoted = voteData.upvotes[i];
+			
 			if (n.cid == 4 && n.tid != 52) {
 				n.isDictionariezTrove = true;
+				n.teaser.content = `<a href="https://github.com/pnlpal/dictionaries" target="_blank" rel="nofollow" 
+						data-tid="${n.tid}"
+						class="btn btn-sm btn-default hidden-xs add-to-dictionariez">Add to Dictionariez</a>
+				`;
 			}
 		});
 		return { topics, uid };

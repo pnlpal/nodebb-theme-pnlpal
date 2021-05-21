@@ -48,13 +48,7 @@
 					<a href="{config.relative_path}/category/{topics.category.slug}"><span class="fa-stack fa-lg" style="{function.generateCategoryBackground, topics.category}"><i style="color:{topics.category.color};" class="fa {topics.category.icon} fa-stack-1x"></i></span> {topics.category.name}</a> &bull;
 				</small> -->
 				<!-- ENDIF !template.category -->
-				
-				<div class="text-center dictionariez-btn-wrapper hidden-xs">
-					<a href="https://github.com/pnlpal/dictionaries" target="_blank" rel="nofollow" 
-						data-tid="{topics.tid}"
-						class="btn btn-sm btn-default add-to-dictionariez">Add to Dictionariez</a>
-				</div>
-
+		
 				<div class="post-content-wrapper">
 					<div>
 						{topics.teaser.content}

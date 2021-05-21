@@ -30,12 +30,16 @@
             &:last-child {
                 border-bottom: 1px solid #eeeeee;
             }
+
+            &[data-cid='4'] {
+               .content h2 {
+                    .post-content-wrapper {
+                        overflow: initial;
+                    }
+                }
+            }
             .content {
                 h2 {
-                    .dictionariez-btn-wrapper {
-                        display: none;
-                    }
-
                     .post-content-wrapper {
                         display: block;
                         position: relative;
@@ -66,6 +70,13 @@
                                               rgba(255,255,255, 1) 90%);
                             width    : 100%;
                             height   : 50px;
+                        }
+
+                        a.add-to-dictionariez {
+                            position: absolute;
+                            right: 10px;
+                            top: -27px;
+                            border-radius: 4px;
                         }
                     }
                 }
@@ -108,26 +119,6 @@
 
                 .stats-row {
                     margin-left: 160px;
-                }
-            }
-        }
-    }
-    &.dictionariez-trove > ul {
-        > li {
-            .content { 
-                h2 {
-                    .dictionariez-btn-wrapper {
-                        display: block;
-                        a.btn {
-                            position: absolute;
-                            right: 10px;
-                            top: 10px;
-                            border-radius: 4px;
-                        }
-                    }
-                    .post-content-wrapper {
-                        display: none;
-                    }
                 }
             }
         }
