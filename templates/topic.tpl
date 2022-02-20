@@ -7,9 +7,10 @@
 	<div class="topic <!-- IF widgets.sidebar.length -->col-lg-9 col-sm-12<!-- ELSE -->col-lg-12<!-- ENDIF widgets.sidebar.length -->">
 		<div class="topic-header">
 			<h1 component="post/header" class="" itemprop="name">
-				<span class="topic-title" component="topic/title">
+				<span class="topic-title">
 					<span component="topic/labels">
-						<i component="topic/pinned" class="fa fa-thumb-tack <!-- IF !pinned -->hidden<!-- ENDIF !pinned -->" title="{{{ if !pinExpiry }}}[[topic:pinned]]{{{ else }}}[[topic:pinned-with-expiry, {pinExpiryISO}]]{{{ end }}}"></i>
+						<i component="topic/scheduled" class="fa fa-clock-o <!-- IF !scheduled -->hidden<!-- ENDIF !scheduled -->" title="[[topic:scheduled]]"></i>
+						<i component="topic/pinned" class="fa fa-thumb-tack <!-- IF (scheduled || !pinned) -->hidden<!-- ENDIF (scheduled || !pinned) -->" title="{{{ if !pinExpiry }}}[[topic:pinned]]{{{ else }}}[[topic:pinned-with-expiry, {pinExpiryISO}]]{{{ end }}}"></i>
 						<i component="topic/locked" class="fa fa-lock <!-- IF !locked -->hidden<!-- ENDIF !locked -->" title="[[topic:locked]]"></i>
 						<i class="fa fa-arrow-circle-right <!-- IF !oldCid -->hidden<!-- ENDIF !oldCid -->" title="{{{ if privileges.isAdminOrMod }}}[[topic:moved-from, {oldCategory.name}]]{{{ else }}}[[topic:moved]]{{{ end }}}"></i>
 						{{{each icons}}}{@value}{{{end}}}
@@ -18,10 +19,10 @@
 					<!-- IF externalLink -->
 					<a href="{externalLink}" rel="nofollow" target="_blank" itemprop="url" class="external-link" data-tid="{tid}">
 						<i class="fa fa-external-link"></i>
-						{title}
+						<span component="topic/title">{title}</span>
 					</a>
 					<!-- ELSE -->
-					{title}
+					<span component="topic/title">{title}</span>
 					<!-- ENDIF externalLink -->
 				</span>
 				
@@ -36,13 +37,10 @@
 
 			<div class="topic-info clearfix">
 				<div class="category-item inline-block">
-					{{{ if category.icon }}}
-					<div role="presentation" class="icon pull-left" style="{{{ if category.bgColor }}}background-color: {category.bgColor};{{{end}}}; {{{ if category.color}}}color: {category.color};{{{end}}}">
+					<div role="presentation" class="icon pull-left" style="{function.generateCategoryBackground, category}">
 						<i class="fa fa-fw {category.icon}"></i>
 					</div>
-					{{{ end }}}
 					<a href="{config.relative_path}/category/{category.slug}">{category.name}</a>
-
 				</div>
 
 				<div class="tags tag-list inline-block hidden-xs">
@@ -61,7 +59,12 @@
 				>
 					<i class="fa fa-share-alt"></i>
 				</a>
+				
+				{{{ if browsingUsers }}}
+				<div class="inline-block hidden-xs">
 				<!-- IMPORT partials/topic/browsing-users.tpl -->
+				</div>
+				{{{ end }}}
 
 				<!-- IMPORT partials/post_bar.tpl -->
 			</div>
@@ -78,9 +81,11 @@
 		</div>
 		<!-- ENDIF merger -->
 
+		{{{ if !scheduled }}}
 		<!-- IMPORT partials/topic/deleted-message.tpl -->
+		{{{ end }}}
 
-		<ul component="topic" class="posts" data-tid="{tid}" data-cid="{cid}">
+		<ul component="topic" class="posts timeline" data-tid="{tid}" data-cid="{cid}">
 			{{{each posts}}}
 				<li component="post" class="{{{ if posts.deleted }}}deleted{{{ end }}} {{{ if posts.selfPost }}}self-post{{{ end }}} {{{ if posts.topicOwnerPost }}}topic-owner-post{{{ end }}}" <!-- IMPORT partials/data/topic.tpl -->>
 					<a component="post/anchor" data-index="{posts.index}" id="{posts.index}"></a>
@@ -90,8 +95,16 @@
 
 					<!-- IMPORT partials/topic/post.tpl -->
 				</li>
+				{renderTopicEvents(@index, config.topicPostSort)}
 			{{{end}}}
 		</ul>
+
+		{{{ if browsingUsers }}}
+		<div class="visible-xs">
+			<!-- IMPORT partials/topic/browsing-users.tpl -->
+			<hr/>
+		</div>
+		{{{ end }}}
 
 		<!-- IF config.enableQuickReply -->
 		<!-- IMPORT partials/topic/quickreply.tpl -->
@@ -101,20 +114,7 @@
 		<!-- IMPORT partials/paginator.tpl -->
 		<!-- ENDIF config.usePagination -->
 
-		<div class="navigator-thumb text-center hidden">
-			<strong class="text"></strong><br/>
-			<span class="time"></span>
-		</div>
-		<div class="visible-xs visible-sm pagination-block text-center">
-			<div class="progress-bar"></div>
-			<div class="wrapper">
-				<i class="fa fa-2x fa-angle-double-up pointer fa-fw pagetop"></i>
-				<i class="fa fa-2x fa-angle-up pointer fa-fw pageup"></i>
-				<span class="pagination-text"></span>
-				<i class="fa fa-2x fa-angle-down pointer fa-fw pagedown"></i>
-				<i class="fa fa-2x fa-angle-double-down pointer fa-fw pagebottom"></i>
-			</div>
-		</div>
+		<!-- IMPORT partials/topic/navigator.tpl -->
 	</div>
 	<div data-widget-area="sidebar" class="col-lg-3 col-sm-12 <!-- IF !widgets.sidebar.length -->hidden<!-- ENDIF !widgets.sidebar.length -->">
 		{{{each widgets.sidebar}}}

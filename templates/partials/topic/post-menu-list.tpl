@@ -57,7 +57,7 @@
 
 {{{each posts.tools}}}
 <li {{{ if ./disabled }}}class="disabled" {{{ end }}}>
-	<a component="{posts.tools.action}" role="menuitem" tabindex="-1" href="#">
+	<a {{{ if ./action}}}component="{./action}"{{{ end }}} role="menuitem" tabindex="-1" href="{{{ if ./href }}}{./href}{{{ else }}}#{{{ end }}}">
 		<span class="menu-icon"><i class="fa fa-fw {posts.tools.icon}"></i></span> {{posts.tools.html}}
 	</a>
 </li>
@@ -96,19 +96,28 @@
 	{{{end}}}
 <!-- ENDIF !posts.deleted -->
 
-<!-- IF posts.display_flag_tools -->
+{{{ if posts.display_flag_tools }}}
 <li class="divider"></li>
-{{{ if !posts.flags.flagged }}}
-<li><a component="post/flag" role="menuitem" tabindex="-1" href="#"><i class="fa fa-fw fa-flag"></i> [[topic:flag-post]]</a></li>
-{{{ if !posts.selfPost}}}
-<li><a component="post/flagUser" role="menuitem" tabindex="-1" href="#"><i class="fa fa-fw fa-flag"></i> [[topic:flag-user]]</a></li>
+
+<li {{{ if posts.flags.flagged }}}hidden{{{ end }}}>
+	<a component="post/flag" role="menuitem" tabindex="-1" href="#"><i class="fa fa-fw fa-flag"></i> [[topic:flag-post]]</a>
+</li>
+<li {{{ if !posts.flags.flagged }}}hidden{{{ end }}} class="disabled text-muted">
+	<a component="post/already-flagged" role="menuitem" tabindex="-1" href="#"><i class="fa fa-fw fa-flag"></i> [[topic:already-flagged]]</a>
+</li>
+
+{{{ if (!posts.selfPost && posts.uid) }}}
+<li>
+	<a component="post/flagUser" role="menuitem" tabindex="-1" href="#"><i class="fa fa-fw fa-flag"></i> [[topic:flag-user]]</a>
+</li>
 {{{ end }}}
-{{{ else }}}
-<li class="disabled text-muted"><a role="menuitem" tabindex="-1" href="#"><i class="fa fa-fw fa-flag"></i> [[topic:already-flagged]]</li>
 {{{ end }}}
-<!-- ENDIF posts.display_flag_tools -->
+
 <!-- IF posts.display_moderator_tools -->
 {{{ if posts.flags.exists }}}
 <li><a role="menuitem" tabindex="-1" href="{config.relative_path}/flags/{posts.flags.flagId}"><i class="fa fa-fw fa-exclamation-circle"></i> [[topic:view-flag-report]]</a></li>
+{{{ if (posts.flags.state == "open") }}}
+<li><a component="post/flagResolve" data-flagId="{posts.flags.flagId}" role="menuitem" tabindex="-1" href="#"><i class="fa fa-fw fa-check"></i> [[topic:resolve-flag]]</a></li>
+{{{ end }}}
 {{{ end }}}
 <!-- ENDIF posts.display_moderator_tools -->

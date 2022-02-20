@@ -41,13 +41,19 @@
 	}
 	.topic-header {
 		position: sticky;
-		top: @navbar-height;
+		top: calc(var(--panel-offset) + @navbar-height);
 		background-color: @body-bg;
 		z-index: @zindex-navbar;
 		margin-left: -15px;
 		margin-right: -15px;
 		padding-left: 15px;
 		padding-right: 15px;
+	}
+
+	@media (max-width: @screen-md-max) {
+		.topic-header {
+			top: calc(var(--panel-offset) + @navbar-height - 70px);
+		}
 	}
 
 	.topic-info {
@@ -116,6 +122,7 @@
 				right: 12px;
 				font-size: 12px;
 				top: 0px;
+				z-index: 1;
 
 				@media (min-width: @screen-md-min) {
 					top: 2px;
@@ -157,21 +164,19 @@
 		display: inline-block;
 		padding: 1rem;
 
-		&:first-child {
-			padding-right: 0.5rem;
-		}
-
-		&:last-child {
-			padding-left: 0.5rem;
-		}
-
 		&:focus {
 				text-decoration: none;
 		}
 	}
 
-	[component="post/upvote"].upvoted, [component="post/downvote"].downvoted {
-		color: @brand-primary;
+	[component="post/upvote"].upvoted {
+		border-radius: 3px;
+		border: 1px solid @brand-success;
+	}
+
+	[component="post/downvote"].downvoted {
+		border-radius: 3px;
+		border: 1px solid @brand-warning;
 	}
 
 	[component="post/vote-count"] {
@@ -182,7 +187,6 @@
 	[component="post/parent"] {
 		border: 0;
 		font-size: 10px;
-		background-color: #f0f0f0;
 	}
 
 	.threaded-replies {
@@ -271,7 +275,7 @@
 		margin-top: @post-padding;
 		padding-bottom: 1px;
 		margin-top: -43px;
-		margin-left: 61px;
+		margin-left: 38px;
 		word-wrap: break-word;
 		overflow: hidden;
 		min-height: 60px;
@@ -279,7 +283,7 @@
 
 	.post-tools {
 		a {
-			padding-right: 10px;
+			padding: 1rem 10px;
 			.pointer;
 		}
 	}
@@ -289,7 +293,7 @@
 		font-size: 14px;
 
 		> a {
-			padding: 0.25em;
+			padding: 1rem;
 		}
 
 		// temporary until we build component toggling
@@ -359,6 +363,7 @@
 	}
 
 	.quick-reply {
+		position: relative;
 		.icon {
 			position: relative;
 			border-radius: 50%;
@@ -406,7 +411,7 @@
 
 .topic {
 	&.deleted {
-		.opacity(0.3);
+		opacity: 0.3;
 
 		.votes {
 			display: none;
@@ -414,18 +419,15 @@
 	}
 
 	.posts {
+		&.timeline {
+			.timeline-style;
+		}
+
 		list-style-type: none;
 		padding: 0;
-		[component="post"][data-index="0"] {
-			border-bottom: 5px solid @post-border-color;
-		}
+
 		[component="post"] {
 			position: relative;
-			border-bottom: 1px solid @post-border-color;
-
-			padding-bottom: @post-padding;
-			margin-bottom: @post-padding;
-
 			.transition(0.75s ease-in-out border-color);
 
 			.edit-icon {
@@ -434,7 +436,7 @@
 
 			&.deleted {
 				> .content {
-					.opacity(0.3);
+					opacity: 0.3;
 				}
 
 				.votes {
@@ -505,26 +507,21 @@
 		}
 	}
 
-	.navigator-thumb {
-		position: fixed;
-		background-color: @gray-lighter;
-		bottom: 60px;
-		left: 0px;
-		padding: 10px;
-		border-radius: 5px;
-		white-space: nowrap;
-		z-index: 100;
-	}
-
 	.pagination-block {
 		position: fixed;
-		width: 100%;
 		background-color: @gray-lighter;
 		bottom: 0px;
-		left: 0px;
+		right: 0px;
 		z-index: 100;
 		transition: opacity 250ms ease-in;
 		opacity: 0;
+
+		.pagination-text {
+			color: @text-color;
+			position: relative;
+    		top: -3px;
+    		font-weight: bolder;
+		}
 
 		&.ready {
 			opacity: 1;
@@ -532,6 +529,58 @@
 
 		.wrapper {
 			padding: 5px 0px 5px 0px;
+			.dropdown-toggle {
+				padding-left: 20px;
+				padding-right: 20px;
+				padding-top: 10px;
+				padding-bottom: 10px;
+			}
+			.dropdown-menu {
+				width: 475px;
+
+				li {
+					padding: 15px;
+				}
+				.post-content {
+					height: 350px;
+					overflow: hidden;
+				}
+				.scroller-container {
+					height: 300px;
+					border-right: 3px solid @gray-lighter;
+					margin-right: 3px;
+					cursor: pointer;
+					.scroller-thumb {
+						height: 40px;
+						position: relative;
+						right: -6px;
+						padding-right: 15px;
+    					margin-right: -15px;
+
+
+						.scroller-thumb-icon {
+							width: 9px;
+							height: 40px;
+							background-color: @brand-primary;
+							position: relative;
+							display: inline-block;
+							border-radius: 3px;
+						}
+						.thumb-text {
+							font-weight: bolder;
+							user-select: none;
+							position: relative;
+							top: -15px;
+							padding-right: 10px;
+						}
+					}
+				}
+			}
+			@media (max-width: @screen-sm-min) {
+				.dropdown-menu {
+					width: 100%;
+				}
+			}
 		}
 		.progress-bar {
 			background-color: @brand-info;
@@ -539,6 +588,11 @@
 			z-index: -1;
 			position: absolute;
 			transition: width 50ms ease-in;
+		}
+	}
+	@media (max-width: @screen-sm-min) {
+		.pagination-block {
+			width: 100%;
 		}
 	}
 }
@@ -592,6 +646,16 @@
 	z-index: 1;
 }
 
+.selection-tooltip-container {
+	position: absolute;
+	padding: 5px;
+	border: 1px solid @well-border;
+	background-color: @well-bg;
+	border-radius: 3px;
+	margin: 10px 0px 0px 0px;
+	z-index: 1;
+}
+
 @media screen and (min-width: @screen-sm-min) {
 	.fork-thread-card {
 		max-width: 33%;
@@ -599,12 +663,6 @@
 }
 
 [component="post"] {
-	&.topic-owner-post>.post-header .avatar {
-		-webkit-box-shadow: 0px 0px 4px 3px @brand-primary;
-		-moz-box-shadow: 0px 0px 4px 3px @brand-primary;
-		box-shadow: 0px 0px 4px 3px @brand-primary;
-	}
-
 	.avatar.avatar-sm2x {
 		font-size: 2.875rem;
 	}

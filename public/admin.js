@@ -1,24 +1,15 @@
-'use strict';
-/* globals $, app */
+"use strict";
 
-define('admin/plugins/pnlpal', ['settings'], function(Settings) {
+define("admin/plugins/pnlpal", ["settings"], function (Settings) {
+  var ACP = {};
 
-	var ACP = {};
+  ACP.init = function () {
+    Settings.load("pnlpal", $(".persona-settings"));
 
-	ACP.init = function() {
-		Settings.load('pnlpal', $('.persona-settings'));
+    $("#save").on("click", function () {
+      Settings.save("pnlpal", $(".persona-settings"));
+    });
+  };
 
-		$('#save').on('click', function() {
-			Settings.save('pnlpal', $('.persona-settings'), function() {
-				app.alert({
-					type: 'success',
-					alert_id: 'persona-saved',
-					title: 'Settings Saved',
-					message: 'Pnlpal settings saved'
-				});
-			});
-		});
-	};
-
-	return ACP;
+  return ACP;
 });

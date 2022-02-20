@@ -1,12 +1,26 @@
 <ul component="category" class="topic-list" itemscope itemtype="http://www.schema.org/ItemList" data-nextstart="{nextStart}" data-set="{set}">
-	<meta itemprop="itemListOrder" content="descending">
 	{{{each topics}}}
 	<li component="category/topic" class="row clearfix category-item {function.generateTopicClass}" <!-- IMPORT partials/data/category.tpl -->>
+		<link itemprop="url" content="{config.relative_path}/topic/{../slug}" />
+		<meta itemprop="name" content="{function.stripTags, ../title}" />
+		<meta itemprop="itemListOrder" content="descending" />
+		<meta itemprop="position" content="{../index}" />
 		<a id="{../index}" data-index="{../index}" component="topic/anchor"></a>
-		<meta itemprop="name" content="{function.stripTags, title}">
 
 		<div class="col-md-12 col-sm-12 col-xs-12 content">
 			<div class="avatar pull-left">
+				<!-- IF showSelect -->
+				<div class="select" component="topic/select">
+					{{{ if ./thumbs.length }}}
+					<img src="{./thumbs.0.url}" class="user-img not-responsive" />
+					{{{ else }}}
+					{buildAvatar(../user, "46", true, "not-responsive")}
+					{{{ end }}}
+					<i class="fa fa-check"></i>
+				</div>
+				<!-- ENDIF showSelect -->
+
+				<!-- IF !showSelect -->
 				<!-- IF topics.videoThumb -->
 				<a href="{config.relative_path}/topic/{topics.slug}" itemprop="url" class="video-thumb">
 					<img src="{topics.videoThumb}" class="user-img not-responsive" />
@@ -15,21 +29,24 @@
 					<!-- ENDIF topics.playlistId -->
 				</a>
 				<!-- ELSE -->
-				<a href="<!-- IF topics.user.userslug -->{config.relative_path}/user/{topics.user.userslug}<!-- ELSE -->#<!-- ENDIF topics.user.userslug -->" class="user-avatar">
-					<!-- IF topics.thumb -->
-					<img src="{topics.thumb}" class="user-img not-responsive" />
-					<!-- ELSE -->
-					{buildAvatar(topics.user, "46", true, "not-responsive")}
-					<!-- ENDIF topics.thumb -->
+				<a href="<!-- IF topics.user.userslug -->{config.relative_path}/user/{topics.user.userslug}<!-- ELSE -->#<!-- ENDIF topics.user.userslug -->" class="pull-left">
+					{{{ if ./thumbs.length }}}
+					<img src="{./thumbs.0.url}" class="user-img not-responsive" />
+					{{{ else }}}
+					{buildAvatar(../user, "46", true, "not-responsive")}
+					{{{ end }}}
 				</a>
 				<!-- ENDIF topics.videoThumb -->
+				<!-- ENDIF !showSelect -->
 			</div>
 
 			<h2 component="topic/header" class="title">
-				<i component="topic/pinned" class="fa fa-thumb-tack <!-- IF !topics.pinned -->hide<!-- ENDIF !topics.pinned -->" title="{{{ if !../pinExpiry }}}[[topic:pinned]]{{{ else }}}[[topic:pinned-with-expiry, {../pinExpiryISO}]]{{{ end }}}"></i>
+				<i component="topic/scheduled" class="fa fa-clock-o <!-- IF !topics.scheduled -->hide<!-- ENDIF !topics.scheduled -->" title="[[topic:scheduled]]"></i>
+				<i component="topic/pinned" class="fa fa-thumb-tack <!-- IF (topics.scheduled || !topics.pinned) -->hide<!-- ENDIF (topics.scheduled || !topics.pinned) -->" title="{{{ if !../pinExpiry }}}[[topic:pinned]]{{{ else }}}[[topic:pinned-with-expiry, {../pinExpiryISO}]]{{{ end }}}"></i>
 				<i component="topic/locked" class="fa fa-lock <!-- IF !topics.locked -->hide<!-- ENDIF !topics.locked -->" title="[[topic:locked]]"></i>
 				<i component="topic/moved" class="fa fa-arrow-circle-right <!-- IF !topics.oldCid -->hide<!-- ENDIF !topics.oldCid -->" title="[[topic:moved]]"></i>
-				{{{each icons}}}{@value}{{{end}}}
+				{{{each topics.icons}}}{@value}{{{end}}}
+
 
 				<!-- IF !topics.noAnchor -->
 					<!-- IF topics.externalLink -->
@@ -57,14 +74,14 @@
 					</a>
 				</div>
 
-				<!-- IF topics.tags.length -->
+				{{{ if topics.tags.length }}}
 				<span class="tag-list hidden-xs">
 					{{{each topics.tags}}}
-					<a href="{config.relative_path}/tags/{topics.tags.valueEscaped}"><span class="tag" style="<!-- IF topics.tags.color -->color: {topics.tags.color};<!-- ENDIF topics.tags.color --><!-- IF topics.tags.bgColor -->background-color: {topics.tags.bgColor};<!-- ENDIF topics.tags.bgColor -->">{topics.tags.valueEscaped}</span></a>
+					<a href="{config.relative_path}/tags/{topics.tags.valueEncoded}"><span class="tag tag-item tag-class-{topics.tags.class}">{topics.tags.valueEscaped}</span></a>
 					{{{end}}}
 					<small>&bull;</small>
 				</span>
-				<!-- ENDIF topics.tags.length -->
+				{{{ end }}}
 
 				<small class="hidden-xs"><span class="timeago" title="{topics.timestampISO}"></span> &bull; <a href="<!-- IF topics.user.userslug -->{config.relative_path}/user/{topics.user.userslug}<!-- ELSE -->#<!-- ENDIF topics.user.userslug -->">{topics.user.displayname}</a></small>
 				<small class="visible-xs-inline">

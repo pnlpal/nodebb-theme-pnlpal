@@ -18,6 +18,10 @@ body {
 	min-height: 100%;
 }
 
+#panel {
+	padding-top: var(--panel-offset);
+}
+
 @media (max-width: @screen-xs-max) {
 	.slideout-panel {
 		min-height: 100vh;
@@ -228,7 +232,7 @@ a:hover, .btn-link:hover, .btn-link:active, .btn-link:focus {
 		}
 
 		.formatting-bar .formatting-group li:focus, .formatting-bar .formatting-group li:hover {
-			background-color: #444; 
+			background-color: #444;
 		}
 	}
 }
@@ -252,10 +256,6 @@ a:hover, .btn-link:hover, .btn-link:active, .btn-link:focus {
 	}
 }
 
-.bootbox.modal {
-	z-index: 100001;
-}
-
 .maintenance {
 	.well {
 		white-space: pre-line;
@@ -277,6 +277,10 @@ a.permalink {
 	}
 }
 
+.deco-none, .deco-none:link, .deco-none:hover {
+	color: inherit;
+	text-decoration: inherit;
+}
 
 .disabled a {
 	pointer-events: none;

@@ -1,12 +1,28 @@
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle pull-left" id="mobile-menu">
+					<i class="fa fa-lg fa-fw fa-bars unread-count" data-content="{unreadCount.mobileUnread}" data-unread-url="{unreadCount.unreadUrl}"></i>
+				</button>
+				{{{ if config.loggedIn }}}
+				<button type="button" class="navbar-toggle" id="mobile-chats">
 					<span component="notifications/icon" class="notification-icon fa fa-fw fa-bell-o unread-count" data-content="{unreadCount.notification}"></span>
-					<i class="fa fa-lg fa-fw fa-bars"></i>
-				</button>
-				<button type="button" class="navbar-toggle hidden" id="mobile-chats">
 					<span component="chat/icon" class="notification-icon fa fa-fw fa-comments unread-count" data-content="{unreadCount.chat}"></span>
-					<i class="fa fa-lg fa-comment-o"></i>
+					{buildAvatar(user, "md", true)}
 				</button>
+				{{{ end }}}
+
+				{{{ if config.searchEnabled }}}
+				<div class="navbar-search visible-xs pull-right">
+					<form action="{config.relative_path}/search" method="GET">
+						<button type="button" class="btn btn-link"><i class="fa fa-lg fa-fw fa-search" title="[[global:header.search]]"></i></button>
+						<input autocomplete="off" type="text" class="form-control hidden" name="term" placeholder="[[global:search]]"/>
+						<button class="btn btn-primary hidden" type="submit"></button>
+						<input type="text" class="hidden" name="in" value="{config.searchDefaultInQuick}" />
+					</form>
+					<div class="quick-search-container hidden">
+						<div class="quick-search-results-container"></div>
+					</div>
+				</div>
+				{{{ end }}}
 
 				<!-- IF brand:logo -->
 				<a href="<!-- IF brand:logo:url -->{brand:logo:url}<!-- ELSE -->{relative_path}/<!-- ENDIF brand:logo:url -->">
@@ -46,7 +62,7 @@
 						</ul>
 					</li>
 
-					<!-- IF !config.disableChat -->
+					<!-- IF canChat -->
 					<li class="chats dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="{relative_path}/user/{user.userslug}/chats" title="[[global:header.chats]]" id="chat_dropdown" component="chat/dropdown" data-ajaxify="false" role="button">
 							<i component="chat/icon" class="fa fa-comment-o fa-fw unread-count" data-content="{unreadCount.chat}"></i> <span class="visible-xs-inline">[[global:header.chats]]</span>
@@ -63,7 +79,7 @@
 							<li class="notif-dropdown-link"><a href="{relative_path}/user/{user.userslug}/chats">[[modules:chat.see_all]]</a></li>
 						</ul>
 					</li>
-					<!-- ENDIF !config.disableChat -->
+					<!-- ENDIF canChat -->
 
 					<li id="user_label" class="dropdown">
 						<label for="user-control-list-check" class="dropdown-toggle" data-toggle="dropdown" id="user_dropdown" title="[[global:header.profile]]" role="button">
@@ -104,12 +120,12 @@
 									<i class="fa fa-fw fa-edit"></i> <span>[[user:edit-profile]]</span>
 								</a>
 							</li>
-							<!-- <li>
+							<li>
 								<a component="header/profilelink/settings" href="{relative_path}/user/{user.userslug}/settings">
 									<i class="fa fa-fw fa-gear"></i> <span>[[user:settings]]</span>
 								</a>
-							</li> -->
-							<!-- IF showModMenu -->
+							</li>
+							{{{ if showModMenu }}}
 							<li role="presentation" class="divider"></li>
 							<li class="dropdown-header">[[pages:moderator-tools]]</li>
 							<li>
@@ -127,7 +143,16 @@
 									<i class="fa fa-fw fa-ban"></i> <span>[[pages:ip-blacklist]]</span>
 								</a>
 							</li>
-							<!-- ENDIF showModMenu -->
+							{{{ else }}}
+							{{{ if postQueueEnabled }}}
+							<li>
+								<a href="{relative_path}/post-queue">
+									<i class="fa fa-fw fa-list-alt"></i> <span>[[pages:post-queue]]</span>
+								</a>
+							</li>
+							{{{ end }}}
+							{{{ end }}}
+
 							<li role="presentation" class="divider"></li>
 							<li component="user/logout">
 								<form method="post" action="{relative_path}/logout">
@@ -199,43 +224,27 @@
 					</li>
 				</ul>
 
-				<ul class="nav navbar-nav navbar-right pagination-block visible-lg visible-md">
-					<li class="dropdown">
-						<a><i class="fa fa-angle-double-up pointer fa-fw pagetop"></i></a>
-						<a><i class="fa fa-angle-up pointer fa-fw pageup"></i></a>
-
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							<span class="pagination-text"></span>
-						</a>
-
-						<a><i class="fa fa-angle-down pointer fa-fw pagedown"></i></a>
-						<a><i class="fa fa-angle-double-down pointer fa-fw pagebottom"></i></a>
-
-						<div class="progress-container">
-							<div class="progress-bar"></div>
-						</div>
-
-						<ul class="dropdown-menu" role="menu">
-							<li>
-  								<input type="text" class="form-control" id="indexInput" placeholder="[[global:pagination.enter_index]]">
-  							</li>
-						</ul>
-					</li>
-				</ul>
-
 				<ul id="main-nav" class="nav navbar-nav">
 					{{{each navigation}}}
 					<!-- IF function.displayMenuItem, @index -->
-					<li class="{navigation.class}">
-						<a class="navigation-link" href="{navigation.route}" title="{navigation.title}" <!-- IF navigation.id -->id="{navigation.id}"<!-- ENDIF navigation.id --><!-- IF navigation.properties.targetBlank --> target="_blank"<!-- ENDIF navigation.properties.targetBlank -->>
-							<!-- IF navigation.iconClass -->
+					<li class="{navigation.class}{{{ if navigation.dropdown }}} dropdown{{{ end }}}">
+						<a title="{navigation.title}" class="navigation-link {{{ if navigation.dropdown }}}dropdown-toggle{{{ end }}}"
+						{{{ if navigation.dropdown }}} href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" {{{ else }}} href="{navigation.route}"{{{ end }}} {{{ if navigation.id }}}id="{navigation.id}"{{{ end }}}{{{ if navigation.targetBlank }}} target="_blank"{{{ end }}}>
+							{{{ if navigation.iconClass }}}
 							<i class="fa fa-fw {navigation.iconClass}" data-content="{navigation.content}"></i>
-							<!-- ENDIF navigation.iconClass -->
-
-							<!-- IF navigation.text -->
+							{{{ end }}}
+							{{{ if navigation.text }}}
 							<span class="{navigation.textClass}">{navigation.text}</span>
-							<!-- ENDIF navigation.text -->
+							{{{ end }}}
+							{{{ if navigation.dropdown}}}
+							<i class="fa fa-caret-down"></i>
+							{{{ end }}}
 						</a>
+						{{{ if navigation.dropdown }}}
+						<ul class="dropdown-menu">
+							{navigation.dropdownContent}
+						</ul>
+						{{{ end }}}
 					</li>
 					<!-- ENDIF function.displayMenuItem -->
 					{{{end}}}

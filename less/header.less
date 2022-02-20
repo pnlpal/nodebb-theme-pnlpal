@@ -4,7 +4,6 @@
 		overflow-y: auto;
 		max-height: 250px;
 		padding: 0;
-		color: @gray-dark;
 
 		li.no-notifs {
 			text-align: center;
@@ -32,17 +31,10 @@
 					display: block;
 					min-height: 32px;
 				}
-			}
-
-			&.unread {
-				.bg-variant(@state-warning-bg);
-
-				.mark-read:after {
-					content: "\f111";
-				}
-
-				.mark-read:hover:after {
-					content: "\f10c";
+				.relTime {
+					font-size: 10px;
+					margin-top: 10px;
+					margin-right: 10px;
 				}
 			}
 
@@ -50,20 +42,25 @@
 				color: @text-muted;
 
 				&:after {
-					font-family: "FontAwesome";
-					content: "\f10c";
+					font-family: "Font Awesome 5 Free";
+					content: @fa-var-circle;
+					font-weight: 400;
 					padding: 4px 1rem;
 					position: relative;
 					top: 1px;
 				}
 
 				&:hover {
-					color: @gray-dark;
+					color: darken(@text-muted, 10%);
 					.pointer;
+				}
+			}
 
-					&:after {
-						content: "\f111";
-					}
+			&.unread {
+				.bg-variant(@state-warning-bg);
+
+				.mark-read:after {
+					font-weight: 900;
 				}
 			}
 		}
@@ -85,12 +82,8 @@
     			padding-right: 10px;
 			}
 
-			&:hover {
-				background: @gray-lighter;
-			}
-
 			&:not(:last-child) {
-				border-bottom: 1px solid @gray-lighter;
+				border-bottom: 1px solid @dropdown-border;
 			}
 
 			&.no_active a {
@@ -176,68 +169,6 @@
 			text-overflow: ellipsis;
 			white-space: nowrap;
 			color: @brand-primary;
-		}
-	}
-
-	.pagination-block {
-		margin-right: 10px !important;
-		margin-left: 10px !important;
-		transition: opacity 250ms ease-in;
-		opacity: 0;
-		pointer-events: none;
-
-		&.ready {
-			opacity: 1;
-			pointer-events: inherit;
-		}
-
-		a {
-			display: inline-block;
-			padding-left: 2px;
-			padding-right: 2px;
-		}
-
-		.progress-container {
-			height: 2px;
-			position: absolute;
-			bottom: 8px;
-			left: 8px;
-			background: #666;
-			width: 90%;
-			margin: auto;
-
-			.progress-bar {
-				background-color: @gray-lighter;
-				height: 2px;
-			}
-		}
-
-		.dropdown-toggle {
-			display: inline-block;
-			padding-left: 5px;
-			padding-right: 5px;
-			padding-top: 0px;
-			padding-bottom: 0px;
-		}
-
-		.open>a {
-			background-color: rgba(0, 0, 0, 0)!important;
-		}
-
-
-		.dropdown-menu {
-			padding: 10px;
-		}
-
-		@media (max-width: @screen-xs-max) {
-			.progress-container {
-				display: inline-block;
-				position: static;
-				bottom: 0px;
-				margin-left: 1em;
-				width: 100px;
-				margin-bottom: 3px;
-			}
 		}
 	}
 
@@ -474,26 +405,5 @@ label.dropdown-toggle {
 html[data-dir="rtl"] {
 	.dropdown-menu > li > form > button {
 		text-align: right;
-	}
-}
-
-#mobile-menu:focus i.fa-bars {
-	-webkit-animation: fa-spin 2s infinite linear;
-	animation: fa-spin 2s infinite linear;
-
-	&::before {
-		font-family: "FontAwesome";
-		content: "\f110";
-	}
-}
-
-@keyframes fa-spin {
-	0% {
-		-webkit-transform: rotate(0deg);
-		transform: rotate(0deg);
-	}
-	100% {
-		-webkit-transform: rotate(359deg);
-		transform: rotate(359deg);
 	}
 }
