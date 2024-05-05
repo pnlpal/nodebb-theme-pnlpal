@@ -12,7 +12,7 @@
 	},
 	"scripts": {
 		"lint": "eslint .",
-		"symlink-to-nodebb": "mv ../NodeBB/node_modules/nodebb-theme-pnlpal ../NodeBB/node_modules/nodebb-theme-pnlpal-backup && ln -s $(pwd) ../NodeBB/node_modules/"
+		"symlink-to-nodebb": "mv ../NodeBB/node_modules/nodebb-theme-pnlpal nodebb-theme-pnlpal-backup && ln -s $(pwd) ../NodeBB/node_modules/"
 	},
 	"keywords": [
 		"nodebb",
