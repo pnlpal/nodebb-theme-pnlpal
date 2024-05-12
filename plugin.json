@@ -8,9 +8,17 @@
 		{ "hook": "filter:user.profileMenu", "method": "addProfileItem" },
 
 		{ "hook": "filter:topic.create", "method": "setExternalLinkOnSaveTopic" },
-		{ "hook": "filter:topic.edit", "method": "setExternalLinkOnSaveTopic" }
+		{ "hook": "filter:topic.edit", "method": "setExternalLinkOnSaveTopic" },
+		{ "hook": "filter:topics.get", "method": "onGetTopics" },
+		{ "hook": "filter:parse.post", "method": "parsePost", "priority": 6 },
+
+		{ "hook": "filter:category.get", "method": "onGetCategory" }
 	],
-	"scripts": ["public/modules/autohidingnavbar.js", "public/persona.js"],
+	"scripts": [
+		"public/modules/autohidingnavbar.js",
+		"public/persona.js",
+		"public/pnlpal.js"
+	],
 	"modules": {
 		"../admin/plugins/persona.js": "public/admin.js",
 		"persona/taskbar.js": "public/modules/taskbar.js",
