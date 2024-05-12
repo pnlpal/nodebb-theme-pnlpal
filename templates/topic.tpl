@@ -20,24 +20,8 @@
 						<i class="fa fa-arrow-circle-right {{{ if !oldCid }}}hidden{{{ end }}}" title="{{{ if privileges.isAdminOrMod }}}[[topic:moved-from, {oldCategory.name}]]{{{ else }}}[[topic:moved]]{{{ end }}}"></i>
 						{{{each icons}}}<span class="lh-1 align-middle">{@value}</span>{{{end}}}
 					</span>
-
-					<!-- IF externalLink -->
-					<a href="{externalLink}" rel="nofollow" target="_blank" itemprop="url" class="external-link" data-tid="{tid}">
-						<i class="fa fa-external-link"></i>
-						<span component="topic/title">{title}</span>
-					</a>
-					<!-- ELSE -->
 					<span component="topic/title">{title}</span>
-					<!-- ENDIF externalLink -->
 				</span>
-				
-				<!-- IF category.isDictionariezTrove -->
-				<div class="pull-right">
-					<a href="https://github.com/pnlpal/dictionaries" target="_blank" rel="nofollow" 
-						data-tid="{tid}"
-						class="btn btn-sm btn-info add-to-dictionariez">Add to Dictionariez</a>
-				</div>
-				<!-- END -->
 			</h1>
 
 			<div class="topic-info clearfix">
@@ -55,14 +39,6 @@
 				{{{ if !feeds:disableRSS }}}
 				{{{ if rssFeedUrl }}}<a class="hidden-xs" target="_blank" href="{rssFeedUrl}"><i class="fa fa-rss-square"></i></a>{{{ end }}}
 				{{{ end }}}
-
-				<a class="need-share-button hidden-xs" href=""
-				title="If you like this post, share it. It really helps!"
-				data-share-networks="Twitter,Pinterest,Facebook,Reddit,Linkedin,Tumblr,mailto,Evernote,Wechat,Douban"
-				>
-					<i class="fa fa-share-alt"></i>
-				</a>
-				
 				{{{ if browsingUsers }}}
 				<div class="d-inline-block hidden-xs">
 				<!-- IMPORT partials/topic/browsing-users.tpl -->

@@ -14,11 +14,6 @@
 				}
 
 				h2 a, h2 .post-content-wrapper {
-					color: @gray;
-				}
-			}
-			&.unread {
-				h2 a {
 					color: $text-muted;
 				}
 			}

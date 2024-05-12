@@ -28,7 +28,6 @@
 					{buildAvatar(../user, "48px", true, "not-responsive")}
 					{{{ end }}}
 				</a>
-				<!-- ENDIF topics.videoThumb -->
 				<!-- ENDIF !showSelect -->
 			</div>
 
@@ -54,15 +53,6 @@
 				&bull;
 				<!-- ENDIF !template.category -->
 		
-				<div class="post-content-wrapper">
-					<div>
-						{topics.teaser.content}
-					</div>
-					<a href="{config.relative_path}/topic/{topics.slug}" class="fade-effect">
-					</a>
-				</div>
-
-
 				<span data-tid="{./tid}" component="topic/tags" class="tag-list hidden-xs {{{ if !./tags.length }}}hidden{{{ end}}}">
 					{{{ each ./tags }}}
 					<!-- IMPORT partials/topic/tag.tpl -->
@@ -111,7 +101,12 @@
 					<a class="permalink text-muted" href="{config.relative_path}/topic/{topics.slug}/{topics.teaser.index}">
 						<span class="timeago" title="{topics.teaser.timestampISO}"></span>
 					</a>
+					</p>
+				<div class="post-content">
+					{topics.teaser.content}
 				</div>
+				<!-- ENDIF topics.teaser.pid -->
+				<!-- ENDIF topics.unreplied -->
 			</div>
 		</div>
 	</li>

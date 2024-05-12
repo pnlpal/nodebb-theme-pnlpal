@@ -6,20 +6,30 @@ const controllers = require('./lib/controllers');
 
 const library = module.exports;
 
-require('./external')(library);
-require('./captionz')(library);
+// require('./external')(library);
+// require('./captionz')(library);
 
 library.init = async function (params) {
 	const { router, middleware } = params;
 	const routeHelpers = require.main.require('./src/routes/helpers');
-	routeHelpers.setupAdminPageRoute(router, '/admin/plugins/persona', [], controllers.renderAdminPage);
+	routeHelpers.setupAdminPageRoute(
+		router,
+		'/admin/plugins/pnlpal',
+		[],
+		controllers.renderAdminPage
+	);
 
-	routeHelpers.setupPageRoute(router, '/user/:userslug/theme', [
-		middleware.exposeUid,
-		middleware.ensureLoggedIn,
-		middleware.canViewUsers,
-		middleware.checkAccountPermissions,
-	], controllers.renderThemeSettings);
+	routeHelpers.setupPageRoute(
+		router,
+		'/user/:userslug/theme',
+		[
+			middleware.exposeUid,
+			middleware.ensureLoggedIn,
+			middleware.canViewUsers,
+			middleware.checkAccountPermissions,
+		],
+		controllers.renderThemeSettings
+	);
 };
 
 library.addAdminNavigation = async function (header) {
@@ -82,71 +92,6 @@ library.defineWidgetAreas = async function (areas) {
 	});
 
 	areas = areas.concat([
-		// {
-		// 	name: 'Categories Sidebar',
-		// 	template: 'categories.tpl',
-		// 	location: 'sidebar',
-		// },
-		// {
-		// 	name: 'Category Sidebar',
-		// 	template: 'category.tpl',
-		// 	location: 'sidebar',
-		// },
-		// {
-		// 	name: 'Category Left',
-		// 	template: 'category.tpl',
-		// 	location: 'left',
-		// },
-		// {
-		// 	name: 'Topic Sidebar',
-		// 	template: 'topic.tpl',
-		// 	location: 'sidebar',
-		// },
-		// {
-		// 	name: 'Categories Header',
-		// 	template: 'categories.tpl',
-		// 	location: 'header',
-		// },
-		// {
-		// 	name: 'Category Header',
-		// 	template: 'category.tpl',
-		// 	location: 'header',
-		// },
-		// {
-		// 	name: 'Topic Header',
-		// 	template: 'topic.tpl',
-		// 	location: 'header',
-		// },
-		// {
-		// 	name: 'Categories Footer',
-		// 	template: 'categories.tpl',
-		// 	location: 'footer',
-		// },
-		// {
-		// 	name: 'Category Footer',
-		// 	template: 'category.tpl',
-		// 	location: 'footer',
-		// },
-		// {
-		// 	name: 'Topic Footer',
-		// 	template: 'topic.tpl',
-		// 	location: 'footer',
-		// },
-		// {
-		// 	name: 'Account Header',
-		// 	template: 'account/profile.tpl',
-		// 	location: 'header',
-		// },
-		// {
-		// 	name: 'Users Header',
-		// 	template: 'users.tpl',
-		// 	location: 'header',
-		// },
-		// {
-		// 	name: 'Tags Header',
-		// 	template: 'tags.tpl',
-		// 	location: 'header',
-		// },
 		{
 			name: 'Main post header',
 			template: 'topic.tpl',
@@ -173,5 +118,3 @@ library.getThemeConfig = async function (config) {
 	config.enableQuickReply = settings.enableQuickReply === 'on';
 	return config;
 };
-
-
