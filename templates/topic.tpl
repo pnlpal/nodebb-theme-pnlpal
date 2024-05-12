@@ -20,7 +20,14 @@
 						<i class="fa fa-arrow-circle-right {{{ if !oldCid }}}hidden{{{ end }}}" title="{{{ if privileges.isAdminOrMod }}}[[topic:moved-from, {oldCategory.name}]]{{{ else }}}[[topic:moved]]{{{ end }}}"></i>
 						{{{each icons}}}<span class="lh-1 align-middle">{@value}</span>{{{end}}}
 					</span>
+					<!-- IF externalLink -->
+					<a component="topic/title" href="{externalLink}" rel="nofollow" target="_blank" itemprop="url" class="external-link" data-tid="{tid}">
+						<i class="fa fa-external-link"></i>
+						{title}
+					</a>
+					<!-- ELSE -->
 					<span component="topic/title">{title}</span>
+					<!-- ENDIF externalLink -->
 				</span>
 			</h1>
 

@@ -41,6 +41,13 @@
 				{{{ if topics.noAnchor }}}
 				<span>{./title}</span>
 				{{{ else }}}
+
+				<!-- IF topics.externalLink -->
+				<a href="{./externalLink}" rel="nofollow" target="_blank" itemprop="url" class="external-link" data-tid="{./tid}">
+					<i class="fa fa-external-link"></i>
+				</a>
+				<!-- ENDIF topics.externalLink -->
+
 				<a href="{config.relative_path}/topic/{./slug}{{{ if ./bookmark }}}/{./bookmark}{{{ end }}}">{./title}</a>
 				{{{ end }}}
 			</h2>

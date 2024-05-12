@@ -6,7 +6,7 @@ const controllers = require('./lib/controllers');
 
 const library = module.exports;
 
-// require('./external')(library);
+require('./external')(library);
 // require('./captionz')(library);
 
 library.init = async function (params) {
