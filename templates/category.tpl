@@ -1,32 +1,53 @@
+<!-- IMPORT partials/breadcrumbs.tpl -->
+<div data-widget-area="header">
+	{{{ each widgets.header }}}
+	{{widgets.header.html}}
+	{{{ end }}}
+</div>
 <div class="row">
-	<div data-widget-area="left" class="category-left col-lg-3 col-md-3 col-sm-3 hidden-xs">
-		{{{each widgets.left}}}
-		{{widgets.left.html}}
-		{{{end}}}
-	</div>
+	<div class="category {{{if widgets.sidebar.length }}}col-lg-9 col-sm-12{{{ else }}}col-lg-12{{{ end }}}">
+		<!-- IMPORT partials/category/subcategory.tpl -->
 
-	<div class="category <!-- IF widgets.sidebar.length -->col-lg-6 col-md-6 col-sm-6<!-- ELSE -->col-lg-9 col-md-9 col-sm-9<!-- ENDIF widgets.sidebar.length --> <!-- IF isCaptionzTrove --> captionz-trove <!-- END --> <!-- IF isDictionariezTrove --> dictionariez-trove <!-- END -->">
-		<div class="row">
-			<!-- IMPORT partials/breadcrumbs.tpl -->
+		{{{ if (topics.length || privileges.topics:create) }}}
+		<div class="topic-list-header sticky-top btn-toolbar justify-content-between py-2 mb-2 flex-nowrap">
+			<div class="d-flex gap-1 align-items-stretch">
+				{{{ if privileges.topics:create }}}
+				<a href="{config.relative_path}/compose?cid={cid}" component="category/post" id="new_topic" class="btn btn-primary text-nowrap" data-ajaxify="false" role="button">[[category:new-topic-button]]</a>
+				{{{ else }}}
+					{{{ if !loggedIn }}}
+					<a component="category/post/guest" href="{config.relative_path}/login" class="btn btn-primary">[[category:guest-login-post]]</a>
+					{{{ end }}}
+				{{{ end }}}
+
+				<a href="{url}" class="d-inline-block">
+					<div class="alert alert-warning h-100 m-0 px-2 py-1 d-flex gap-1 align-items-center hide" id="new-topics-alert"><i class="fa fa-fw fa-rotate-right"></i>[[recent:load-new-posts]]</div>
+				</a>
+			</div>
+			<div component="category/controls" class="d-flex gap-1 align-items-stretch">
+				<!-- IMPORT partials/category/watch.tpl -->
+				<!-- IMPORT partials/category/sort.tpl -->
+				<!-- IMPORT partials/category/tools.tpl -->
+			</div>
 		</div>
+		{{{ end }}}
 
-		<!-- IF !topics.length -->
+		{{{ if (!topics.length && privileges.topics:create)}}}
 		<hr class="visible-xs" />
 		<div class="alert alert-warning" id="category-no-topics">
-			[[category:no_topics]]
+			[[category:no-topics]]
 		</div>
-		<!-- ENDIF !topics.length -->
-		
+		{{{ end }}}
+
 		<!-- IMPORT partials/topics_list.tpl -->
 
-		<!-- IF config.usePagination -->
-			<!-- IMPORT partials/paginator.tpl -->
-		<!-- ENDIF config.usePagination -->
+		{{{ if config.usePagination }}}
+		<!-- IMPORT partials/paginator.tpl -->
+		{{{ end }}}
 	</div>
-	<div data-widget-area="sidebar" class="col-lg-3 col-md-3 col-sm-12 <!-- IF !widgets.sidebar.length -->hidden<!-- ENDIF !widgets.sidebar.length -->">
-		{{{each widgets.sidebar}}}
+	<div data-widget-area="sidebar" class="col-lg-3 col-sm-12 {{{ if !widgets.sidebar.length }}}hidden{{{ end }}}">
+		{{{ each widgets.sidebar }}}
 		{{widgets.sidebar.html}}
-		{{{end}}}
+		{{{ end }}}
 	</div>
 </div>
 

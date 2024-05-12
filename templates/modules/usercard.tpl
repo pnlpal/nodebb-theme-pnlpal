@@ -16,16 +16,16 @@
 		</a>
 
 		<div class="row usercard-info">
-			<div class="col-xs-4">
+			<div class="col-4">
 				<small>[[global:posts]]</small>
-				<span class="human-readable-number">{postcount}</span>
+				<span>{humanReadableNumber(postcount)}</span>
 			</div>
-			<div class="col-xs-4">
+			<div class="col-4">
 				<small>[[global:reputation]]</small>
-				<span class="human-readable-number">{reputation}</span>
+				<span>{humanReadableNumber(reputation)}</span>
 			</div>
-			
-			<button class="btn-morph fab <!-- IF banned --> hide<!-- ENDIF banned -->">
+
+			<button class="btn-morph persona-fab <!-- IF banned --> hide<!-- ENDIF banned -->">
 				<span>
 					<span class="s1"></span>
 					<span class="s2"></span>

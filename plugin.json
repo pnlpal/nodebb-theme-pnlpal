@@ -1,32 +1,21 @@
 {
-  "id": "nodebb-theme-pnlpal",
-  "hooks": [
-    { "hook": "filter:widgets.getAreas", "method": "defineWidgetAreas" },
-    { "hook": "filter:config.get", "method": "getThemeConfig" },
-    { "hook": "static:app.load", "method": "init" },
-    { "hook": "filter:admin.header.build", "method": "addAdminNavigation" },
-    { "hook": "filter:topic.build", "method": "addUserToTopic" },
-
-    { "hook": "filter:topic.create", "method": "setExternalLinkOnSaveTopic" },
-    { "hook": "filter:topic.edit", "method": "setExternalLinkOnSaveTopic" },
-    { "hook": "filter:topics.get", "method": "onGetTopics" },
-    { "hook": "filter:topic.build", "method": "onRenderTopic" },
-    { "hook": "filter:captionz.build", "method": "onRenderCaptionz" },
-    { "hook": "filter:parse.post", "method": "parsePost", "priority": 6 },
-
-    { "hook": "filter:category.getFields", "method": "onGetCategory" },
-    { "hook": "filter:user.profileMenu", "method": "addProfileItem" }
-  ],
-  "scripts": [
-    "public/persona.js",
-    "public/pnlpal.js",
-    "public/settings.js",
-    "public/modules/autohidingnavbar.js",
-    "public/modules/quickreply.js"
-  ],
-  "modules": {
-    "pulling.js": "node_modules/pulling/build/pulling-drawer.js"
-  },
-  "acpScripts": ["public/admin.js"],
-  "languages": "languages"
+	"id": "nodebb-theme-persona",
+	"hooks": [
+		{ "hook": "filter:widgets.getAreas", "method": "defineWidgetAreas" },
+		{ "hook": "filter:config.get", "method": "getThemeConfig" },
+		{ "hook": "static:app.load", "method": "init" },
+		{ "hook": "filter:admin.header.build", "method": "addAdminNavigation" },
+		{ "hook": "filter:user.profileMenu", "method": "addProfileItem" }
+	],
+	"scripts": [
+		"public/modules/autohidingnavbar.js",
+		"public/persona.js"
+	],
+	"modules": {
+		"../admin/plugins/persona.js": "public/admin.js",
+		"persona/taskbar.js": "public/modules/taskbar.js",
+		"persona/mobile-menu.js": "public/modules/mobile-menu.js",
+		"../client/account/theme.js": "public/settings.js"
+	},
+	"languages": "languages"
 }

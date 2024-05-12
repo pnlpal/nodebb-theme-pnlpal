@@ -1,8 +1,6 @@
 'use strict';
 
 const meta = require.main.require('./src/meta');
-const user = require.main.require('./src/user');
-const translator = require.main.require('./src/translator');
 
 const controllers = require('./lib/controllers');
 
@@ -14,29 +12,14 @@ require('./captionz')(library);
 library.init = async function (params) {
 	const { router, middleware } = params;
 	const routeHelpers = require.main.require('./src/routes/helpers');
-	routeHelpers.setupAdminPageRoute(
-		router,
-		'/admin/plugins/pnlpal',
-		middleware,
-		[],
-		controllers.renderAdminPage
-	);
+	routeHelpers.setupAdminPageRoute(router, '/admin/plugins/persona', [], controllers.renderAdminPage);
 
-	router.get('/api/captionz/tracks/:vid', library.getCaptionTracks);
-	router.post('/api/captionz/caption', library.getCaption);
-
-	routeHelpers.setupPageRoute(
-		router,
-		'/user/:userslug/theme',
-		middleware,
-		[
-			middleware.exposeUid,
-			middleware.ensureLoggedIn,
-			middleware.canViewUsers,
-			middleware.checkAccountPermissions,
-		],
-		controllers.renderThemeSettings
-	);
+	routeHelpers.setupPageRoute(router, '/user/:userslug/theme', [
+		middleware.exposeUid,
+		middleware.ensureLoggedIn,
+		middleware.canViewUsers,
+		middleware.checkAccountPermissions,
+	], controllers.renderThemeSettings);
 };
 
 library.addAdminNavigation = async function (header) {
@@ -54,7 +37,7 @@ library.addProfileItem = async (data) => {
 		id: 'theme',
 		route: 'theme',
 		icon: 'fa-paint-brush',
-		name: await translator.translate('[[persona:settings.title]]'),
+		name: '[[themes/persona:settings.title]]',
 		visibility: {
 			self: true,
 			other: false,
@@ -165,6 +148,16 @@ library.defineWidgetAreas = async function (areas) {
 		// 	location: 'header',
 		// },
 		{
+			name: 'Main post header',
+			template: 'topic.tpl',
+			location: 'mainpost-header',
+		},
+		{
+			name: 'Main post footer',
+			template: 'topic.tpl',
+			location: 'mainpost-footer',
+		},
+		{
 			name: 'Account Header',
 			template: 'account/profile.tpl',
 			location: 'header',
@@ -181,24 +174,4 @@ library.getThemeConfig = async function (config) {
 	return config;
 };
 
-library.addUserToTopic = async function (hookData) {
-	const settings = await meta.settings.get('pnlpal');
-	if (settings.enableQuickReply === 'on') {
-		if (hookData.req.user) {
-			const userData = await user.getUserData(hookData.req.user.uid);
-			hookData.templateData.loggedInUser = userData;
-		} else {
-			hookData.templateData.loggedInUser = {
-				uid: 0,
-				username: '[[global:guest]]',
-				picture: user.getDefaultAvatar(),
-				'icon:text': '?',
-				'icon:bgColor': '#aaa',
-			};
-		}
-	}
 
-	return hookData;
-};
-
-module.exports = library;

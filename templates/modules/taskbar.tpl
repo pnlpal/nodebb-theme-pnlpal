@@ -1,3 +1,3 @@
-<div id="taskbar" class="taskbar navbar-fixed-bottom">
-	<div class="navbar-inner"><ul class="nav navbar-nav pull-right"></ul></div>
+<div id="taskbar" component="taskbar" class="taskbar fixed-bottom">
+	<div class="navbar-inner"><ul class="nav navbar-nav"></ul></div>
 </div>

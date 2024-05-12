@@ -4,66 +4,54 @@
 		<link itemprop="url" content="{config.relative_path}/topic/{../slug}" />
 		<meta itemprop="name" content="{function.stripTags, ../title}" />
 		<meta itemprop="itemListOrder" content="descending" />
-		<meta itemprop="position" content="{../index}" />
+		<meta itemprop="position" content="{increment(./index, "1")}" />
 		<a id="{../index}" data-index="{../index}" component="topic/anchor"></a>
 
-		<div class="col-md-12 col-sm-12 col-xs-12 content">
-			<div class="avatar pull-left">
+		<div class="col-md-6 col-sm-9 col-10 content">
+			<div class="avatar float-start me-2">
 				<!-- IF showSelect -->
 				<div class="select" component="topic/select">
 					{{{ if ./thumbs.length }}}
 					<img src="{./thumbs.0.url}" class="user-img not-responsive" />
 					{{{ else }}}
-					{buildAvatar(../user, "46", true, "not-responsive")}
+					{buildAvatar(../user, "48px", true, "not-responsive")}
 					{{{ end }}}
 					<i class="fa fa-check"></i>
 				</div>
 				<!-- ENDIF showSelect -->
 
 				<!-- IF !showSelect -->
-				<!-- IF topics.videoThumb -->
-				<a href="{config.relative_path}/topic/{topics.slug}" itemprop="url" class="video-thumb">
-					<img src="{topics.videoThumb}" class="user-img not-responsive" />
-					<!-- IF topics.playlistId -->
-					<i class="fa fa-fw fa-list" data-content=""></i>
-					<!-- ENDIF topics.playlistId -->
-				</a>
-				<!-- ELSE -->
-				<a href="<!-- IF topics.user.userslug -->{config.relative_path}/user/{topics.user.userslug}<!-- ELSE -->#<!-- ENDIF topics.user.userslug -->" class="pull-left">
+				<a href="<!-- IF topics.user.userslug -->{config.relative_path}/user/{topics.user.userslug}<!-- ELSE -->#<!-- ENDIF topics.user.userslug -->" class="float-start">
 					{{{ if ./thumbs.length }}}
 					<img src="{./thumbs.0.url}" class="user-img not-responsive" />
 					{{{ else }}}
-					{buildAvatar(../user, "46", true, "not-responsive")}
+					{buildAvatar(../user, "48px", true, "not-responsive")}
 					{{{ end }}}
 				</a>
 				<!-- ENDIF topics.videoThumb -->
 				<!-- ENDIF !showSelect -->
 			</div>
 
-			<h2 component="topic/header" class="title">
-				<i component="topic/scheduled" class="fa fa-clock-o <!-- IF !topics.scheduled -->hide<!-- ENDIF !topics.scheduled -->" title="[[topic:scheduled]]"></i>
-				<i component="topic/pinned" class="fa fa-thumb-tack <!-- IF (topics.scheduled || !topics.pinned) -->hide<!-- ENDIF (topics.scheduled || !topics.pinned) -->" title="{{{ if !../pinExpiry }}}[[topic:pinned]]{{{ else }}}[[topic:pinned-with-expiry, {../pinExpiryISO}]]{{{ end }}}"></i>
-				<i component="topic/locked" class="fa fa-lock <!-- IF !topics.locked -->hide<!-- ENDIF !topics.locked -->" title="[[topic:locked]]"></i>
-				<i component="topic/moved" class="fa fa-arrow-circle-right <!-- IF !topics.oldCid -->hide<!-- ENDIF !topics.oldCid -->" title="[[topic:moved]]"></i>
+			<h2 component="topic/header" class="title mb-1">
+				<i component="topic/scheduled" class="fa fa-clock-o {{{ if !topics.scheduled }}}hidden{{{ end }}}" title="[[topic:scheduled]]"></i>
+				<i component="topic/pinned" class="fa fa-thumb-tack {{{ if (topics.scheduled || !topics.pinned) }}}hidden{{{ end }}}" title="{{{ if !../pinExpiry }}}[[topic:pinned]]{{{ else }}}[[topic:pinned-with-expiry, {../pinExpiryISO}]]{{{ end }}}"></i>
+				<i component="topic/locked" class="fa fa-lock {{{ if !topics.locked }}}hidden{{{ end }}}" title="[[topic:locked]]"></i>
+				<i component="topic/moved" class="fa fa-arrow-circle-right {{{ if !topics.oldCid }}}hidden{{{ end }}}" title="[[topic:moved]]"></i>
 				{{{each topics.icons}}}{@value}{{{end}}}
 
-
-				<!-- IF !topics.noAnchor -->
-					<!-- IF topics.externalLink -->
-					<a href="{topics.externalLink}" rel="nofollow" target="_blank" itemprop="url" class="external-link" data-tid="{topics.tid}">
-						<i class="fa fa-external-link"></i>
-					</a>
-					<!-- ENDIF topics.externalLink -->
-
-					<a class="topic-title" href="{config.relative_path}/topic/{topics.slug}<!-- IF topics.bookmark -->/{topics.bookmark}<!-- ENDIF topics.bookmark -->" itemprop="url">{topics.title}</a><br />
-				<!-- ELSE -->
-				<span>{topics.title}</span><br />
-				<!-- ENDIF !topics.noAnchor -->
-
+				{{{ if topics.noAnchor }}}
+				<span>{./title}</span>
+				{{{ else }}}
+				<a href="{config.relative_path}/topic/{./slug}{{{ if ./bookmark }}}/{./bookmark}{{{ end }}}">{./title}</a>
+				{{{ end }}}
+			</h2>
+			<div class="info">
 				<!-- IF !template.category -->
-				<!-- <small>
-					<a href="{config.relative_path}/category/{topics.category.slug}"><span class="fa-stack fa-lg" style="{function.generateCategoryBackground, topics.category}"><i style="color:{topics.category.color};" class="fa {topics.category.icon} fa-stack-1x"></i></span> {topics.category.name}</a> &bull;
-				</small> -->
+				<div class="category-item d-inline-block">
+					{buildCategoryIcon(./category, "24px", "rounded-circle")}
+					<a class="text-muted" href="{config.relative_path}/category/{topics.category.slug}">{topics.category.name}</a>
+				</div>
+				&bull;
 				<!-- ENDIF !template.category -->
 		
 				<div class="post-content-wrapper">
@@ -74,58 +62,54 @@
 					</a>
 				</div>
 
-				{{{ if topics.tags.length }}}
-				<span class="tag-list hidden-xs">
-					{{{each topics.tags}}}
-					<a href="{config.relative_path}/tags/{topics.tags.valueEncoded}"><span class="tag tag-item tag-class-{topics.tags.class}">{topics.tags.valueEscaped}</span></a>
-					{{{end}}}
-					<small>&bull;</small>
+
+				<span data-tid="{./tid}" component="topic/tags" class="tag-list hidden-xs {{{ if !./tags.length }}}hidden{{{ end}}}">
+					{{{ each ./tags }}}
+					<!-- IMPORT partials/topic/tag.tpl -->
+					{{{ end }}}
+					&bull;
 				</span>
-				{{{ end }}}
 
-				<small class="hidden-xs"><span class="timeago" title="{topics.timestampISO}"></span> &bull; <a href="<!-- IF topics.user.userslug -->{config.relative_path}/user/{topics.user.userslug}<!-- ELSE -->#<!-- ENDIF topics.user.userslug -->">{topics.user.displayname}</a></small>
-				<small class="visible-xs-inline">
-					<!-- IF topics.teaser.timestamp -->
-					<span class="timeago" title="{topics.teaser.timestampISO}"></span>
-					<!-- ELSE -->
-					<span class="timeago" title="{topics.timestampISO}"></span>
-					<!-- ENDIF topics.teaser.timestamp -->
-				</small>
-			</h2>
+				<span class="hidden-xs"><span class="timeago text-muted" title="{./timestampISO}"></span> &bull; <a class="text-muted" href="{{{ if ./user.userslug }}}{config.relative_path}/user/{./user.userslug}{{{ else }}}#{{{ end }}}">{./user.displayname}</a></span>
 
-			<div class="stats-row" data-pid="{topics.mainPid}">
-				<div class="col-xs-4 col-sm-3 stats stats-votes">
-					<!-- IF !reputation:disabled -->
-					<a href="" class="upvote text-muted" component="post/upvote" data-upvoted="{topics.upvoted}">
-						<!-- IF topics.upvoted -->
-							<i class="fa fa-heart"></i>
-						<!-- ELSE -->
-							<i class="fa fa-heart-o"></i>
-						<!-- END -->
-						<span class="human-readable-number" component="post/vote-count" title="{topics.votes}">{topics.votes}</span>
-					</a>
-					<!-- END -->
-				</div>
-		
-				<div class="col-xs-4 col-sm-3 stats stats-postcount">
-					<a href="{config.relative_path}/compose?tid={topics.tid}" class="text-muted">
-						<i class="fa fa-comment-o"></i>
-						<span class="human-readable-number" title="{topics.postcount}">{topics.postcount}</span>
-					</a>
-				</div>
-		
-				<div class="col-xs-4 col-sm-3 stats stats-viewcount">
-					<a href="{config.relative_path}/topic/{topics.slug}" class="text-muted">
-						<i class="fa fa-eye"></i>
-						<span class="human-readable-number" title="{topics.viewcount}">{topics.viewcount}</span>
-					</a>
-				</div>
+				<span class="visible-xs-inline timeago text-muted" title="{{{ if ./teaser.timestampISO }}}{./teaser.timestampISO}{{{ else }}}{./timestampISO}{{{ end }}}"></span>
+			</div>
+		</div>
 
-				<div class="hidden-xs col-sm-3 stats stats-share">
-					<a href="" data-share-url="{config.relative_path}/topic/{topics.slug}" class="text-muted need-share-button"
-					title="If you like this post, share it. It really helps!"
-					data-share-networks="Twitter,Pinterest,Facebook,Reddit,Linkedin,Tumblr,mailto,Evernote,Wechat,Douban">
-						<i class="fa fa-share-alt"></i>
+		<div class="mobile-stat col-2 visible-xs text-end">
+			<span>{humanReadableNumber(topics.postcount)}</span> <a href="{config.relative_path}/topic/{topics.slug}/{topics.teaser.index}"><i class="fa fa-arrow-circle-right"></i></a>
+		</div>
+
+		<div class="col-md-1 hidden-sm hidden-xs stats stats-votes">
+			<!-- IF !reputation:disabled -->
+			<span title="{topics.votes}">{humanReadableNumber(topics.votes)}</span><br />
+			<small>[[global:votes]]</small>
+			<!-- END -->
+		</div>
+
+		<div class="col-md-1 hidden-sm hidden-xs stats stats-postcount">
+			<span title="{topics.postcount}">{humanReadableNumber(topics.postcount)}</span><br />
+			<small>[[global:posts]]</small>
+		</div>
+
+		<div class="col-md-1 hidden-sm hidden-xs stats stats-viewcount">
+			<span title="{topics.viewcount}">{humanReadableNumber(topics.viewcount)}</span><br />
+			<small>[[global:views]]</small>
+		</div>
+
+		<div class="col-md-3 col-sm-3 teaser hidden-xs" component="topic/teaser">
+			<div class="lastpost background-link-container" style="border-color: {topics.category.bgColor}">
+				<a class="background-link" href="{config.relative_path}/topic/{topics.slug}/{topics.teaser.index}"></a>
+				<!-- IF topics.unreplied -->
+				<p>
+					[[category:no-replies]]
+				</p>
+				<!-- ELSE -->
+				<!-- IF topics.teaser.pid -->
+				<p>
+					<a href="{config.relative_path}/user/{topics.teaser.user.userslug}">{buildAvatar(topics.teaser.user, "24px", true, "not-responsive")}</a>
+					<a class="permalink text-muted" href="{config.relative_path}/topic/{topics.slug}/{topics.teaser.index}">
+						<span class="timeago" title="{topics.teaser.timestampISO}"></span>
 					</a>
 				</div>
 			</div>

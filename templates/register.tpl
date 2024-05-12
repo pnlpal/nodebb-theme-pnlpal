@@ -8,50 +8,48 @@
 	<div class="row {{{ if widgets.sidebar.length }}}col-lg-9 col-sm-12{{{ else }}}col-lg-12{{{ end }}}">
 		<div class="{register_window:spansize}">
 			<div class="register-block">
-				<div class="alert alert-danger<!-- IF !error --> hidden<!-- ENDIF !error -->" id="register-error-notify" >
+				<div class="alert alert-danger{{{ if !error }}} hidden{{{ end }}}" id="register-error-notify" >
 					<strong>[[error:registration-error]]</strong>
 					<p>{error}</p>
 				</div>
 				<form component="register/local" class="form-horizontal" role="form" action="{config.relative_path}/register" method="post">
-					<div class="form-group">
-						<label for="username" class="col-lg-4 control-label">[[register:username]]</label>
-						<div class="col-lg-8">
-							<input class="form-control" type="text" placeholder="[[register:username_placeholder]]" name="username" id="username" autocorrect="off" autocapitalize="off" autocomplete="off" />
+					<div class="row mb-3">
+						<label for="username" class="col-lg-2 col-form-label">[[register:username]]</label>
+						<div class="col-lg-10">
+							<input class="form-control" type="text" placeholder="[[register:username-placeholder]]" name="username" id="username" autocorrect="off" autocapitalize="off" autocomplete="nickname" />
 							<span class="register-feedback" id="username-notify"></span>
-							<span class="help-block">[[register:help.username_restrictions, {minimumUsernameLength}, {maximumUsernameLength}]]</span>
+							<span class="form-text">[[register:help.username-restrictions, {minimumUsernameLength}, {maximumUsernameLength}]]</span>
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="password" class="col-lg-4 control-label">[[register:password]]</label>
-						<div class="col-lg-8">
-							<input class="form-control" type="password" placeholder="[[register:password_placeholder]]" name="password" id="password" />
+					<div class="row mb-2">
+						<label for="password" class="col-lg-2 col-form-label">[[register:password]]</label>
+						<div class="col-lg-10">
+							<input class="form-control" type="password" placeholder="[[register:password-placeholder]]" name="password" id="password" autocomplete="new-password" autocapitalize="off" />
 							<span class="register-feedback" id="password-notify"></span>
-							<span class="help-block">[[register:help.minimum_password_length, {minimumPasswordLength}]]</span>
+							<span class="form-text">[[register:help.minimum-password-length, {minimumPasswordLength}]]</span>
 							<p id="caps-lock-warning" class="text-danger hidden">
 								<i class="fa fa-exclamation-triangle"></i> [[login:caps-lock-enabled]]
 							</p>
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="password-confirm" class="col-lg-4 control-label">[[register:confirm_password]]</label>
-						<div class="col-lg-8">
-							<input class="form-control" type="password" placeholder="[[register:confirm_password_placeholder]]" name="password-confirm" id="password-confirm" />
+					<div class="row mb-2">
+						<label for="password-confirm" class="col-lg-2 col-form-label">[[register:confirm-password]]</label>
+						<div class="col-lg-10">
+							<input class="form-control" type="password" placeholder="[[register:confirm-password-placeholder]]" name="password-confirm" id="password-confirm" autocomplete="new-password" autocapitalize="off" />
 							<span class="register-feedback" id="password-confirm-notify"></span>
 						</div>
 					</div>
 
-					{{{each regFormEntry}}}
-					<div class="form-group">
-						<label for="register-{regFormEntry.styleName}" class="col-lg-4 control-label">{regFormEntry.label}</label>
-						<div id="register-{regFormEntry.styleName}" class="col-lg-8">
-							{{regFormEntry.html}}
-						</div>
+					{{{ each regFormEntry }}}
+					<div class="row mb-2 {./styleName}">
+						<label for="{./inputId}" class="col-lg-2 col-form-label">{./label}</label>
+						<div class="col-lg-10">{{./html}}</div>
 					</div>
-					{{{end}}}
+					{{{ end }}}
 
-					<div class="form-group">
-						<div class="col-lg-offset-4 col-lg-8">
-							<button class="btn btn-primary btn-lg btn-block" id="register" type="submit">[[register:register_now_button]]</button>
+					<div class="row">
+						<div class="offset-lg-2 col-lg-10">
+							<button class="btn btn-primary btn-lg" id="register" type="submit">[[register:register-now-button]]</button>
 						</div>
 					</div>
 					<input id="token" type="hidden" name="token" value="" />
@@ -64,7 +62,7 @@
 		{{{ if alternate_logins }}}
 		<div class="col-md-6">
 			<div class="alt-register-block">
-				<h4>[[register:alternative_registration]]</h4>
+				<h4>[[register:alternative-registration]]</h4>
 				<ul class="alt-logins">
 					{{{each authentication}}}
 					<li class="{authentication.name}"><a rel="nofollow noopener noreferrer" target="_top" href="{config.relative_path}{authentication.url}"><i class="fa {authentication.icon} fa-3x"></i></i></a></li>
