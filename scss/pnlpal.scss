@@ -58,6 +58,26 @@
 						}
 					}
 				}
+
+				.stats-row {
+					.stats {
+						display: inline-block;
+						margin-right: 10px;
+						width: fit-content;
+						&:last-child {
+							margin-right: 0;
+						}
+
+						> a {
+							width: 120px;
+							border-radius: 15px;
+							border: none;
+							&:not(:hover) {
+								background-color: #f2f2f2;
+							}
+						}
+					}
+				}
 			}
 		}
 	}

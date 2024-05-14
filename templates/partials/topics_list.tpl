@@ -75,6 +75,36 @@
 
 				<span class="visible-xs-inline timeago text-muted" title="{{{ if ./teaser.timestampISO }}}{./teaser.timestampISO}{{{ else }}}{./timestampISO}{{{ end }}}"></span>
 			</div>
+
+			<div class="stats-row info" data-pid="{./mainPid}">
+				<div class="stats stats-votes">
+					<!-- IF !reputation:disabled -->
+					<a href="" class="upvote text-muted btn btn-light" component="post/upvote" data-upvoted="{./upvoted}">
+						<!-- IF ./upvoted -->
+							<i class="fa fa-heart"></i>
+						<!-- ELSE -->
+							<i class="fa fa-heart-o"></i>
+						<!-- END -->
+						<span class="human-readable-number" component="post/vote-count" title="{./votes}">{./votes}</span>
+					</a>
+					<!-- END -->
+				</div>
+		
+				<div class="stats stats-postcount">
+					<a href="{config.relative_path}/compose?tid={./tid}" class="text-muted btn btn-light">
+						<i class="fa fa-comment-o"></i>
+						<span class="human-readable-number" title="{./postcount}">{./postcount}</span>
+					</a>
+				</div>
+
+				<div class="hidden-xs stats stats-share">
+					<a href="" data-share-url="{config.relative_path}/topic/{./slug}" class="text-muted btn btn-light need-share-button"
+					title="If you like this post, share it. It really helps!"
+					data-share-networks="Twitter,Pinterest,Facebook,Reddit,Linkedin,Tumblr,mailto,Evernote,Wechat,Douban">
+						<i class="fa fa-share-alt"></i>
+					</a>
+				</div>
+			</div>
 		</div>
 	</li>
 	{{{end}}}
