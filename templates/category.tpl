@@ -4,7 +4,7 @@
 	{{{ end }}}
 </div>
 <div class="row">
-	<div class="category {{{if widgets.sidebar.length }}}col-lg-9 col-sm-12{{{ else }}}col-lg-12{{{ end }}}">
+	<div class="category {{{if widgets.sidebar.length }}}col-lg-9 col-sm-12{{{ else }}}col-lg-12{{{ end }}} <!-- IF isCaptionzTrove --> captionz-trove <!-- END --> <!-- IF isDictionariezTrove --> dictionariez-trove <!-- END -->">
 		<!-- IMPORT partials/category/subcategory.tpl -->
 
 		{{{ if (topics.length || privileges.topics:create) }}}

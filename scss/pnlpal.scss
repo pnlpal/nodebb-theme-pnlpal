@@ -109,17 +109,8 @@ nav.navbar {
 				.user-avatar {
 					margin-left: 94px;
 				}
-				h2 {
-					margin-left: 160px;
-					.post-content-wrapper {
-						max-height: 50px;
-						> .fade-effect {
-							top: 20px;
-							height: 30px;
-						}
-					}
-				}
-
+				.title,
+				.info,
 				.stats-row {
 					margin-left: 160px;
 				}
