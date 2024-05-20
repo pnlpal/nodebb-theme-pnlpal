@@ -3,6 +3,19 @@ nav.navbar {
 		display: block;
 	}
 }
+
+.topic-list-header {
+	border-top: 0;
+	border-bottom: 0;
+}
+
+[data-widget-area='sidebar'] {
+	.card {
+		border-radius: 5px;
+		margin-bottom: 10px;
+	}
+}
+
 .category {
 	> ul {
 		> li {
