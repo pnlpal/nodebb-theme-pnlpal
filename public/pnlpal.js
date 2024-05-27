@@ -1,6 +1,6 @@
 $(window).on('action:app.load', function () {
 	let inited = false;
-	$(window).on('action:topics.loaded', function (ev, res) {
+	$(window).on('action:topics.loaded', function () {
 		if (!inited) {
 			setupVote();
 			inited = true;
@@ -8,6 +8,7 @@ $(window).on('action:app.load', function () {
 	});
 
 	setupDictionariezTrove();
+	highlightCategoryOnSidebar();
 });
 
 function setupDictionariezTrove() {
@@ -19,6 +20,17 @@ function setupDictionariezTrove() {
 		}
 	});
 }
+
+const highlightCategoryOnSidebar = function () {
+	$(window).on('action:category.loaded', function (_, { cid }) {
+		$('ul.categories-list li a').each(function () {
+			const $this = $(this);
+			if ($this.attr('href').includes(`/category/${cid}`)) {
+				$this.addClass('active');
+			}
+		});
+	});
+};
 
 function setupVote() {
 	require(['api'], function (api) {
