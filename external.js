@@ -77,7 +77,7 @@ module.exports = function (library) {
 				n.isDictionariezTrove = true;
 				n.teaser.content = `<a href="https://github.com/pnlpal/dictionaries" target="_blank" rel="nofollow" 
 						data-tid="${n.tid}"
-						class="btn btn-sm btn-default add-to-dictionariez">Add to Dictionariez</a>
+						class="btn btn-sm btn-outline-secondary add-to-dictionariez">Add to Dictionariez</a>
 				`;
 			}
 		});

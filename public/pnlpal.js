@@ -9,7 +9,54 @@ $(window).on('action:app.load', function () {
 
 	setupDictionariezTrove();
 	highlightCategoryOnSidebar();
+	setupAddToDictionariezToAllCodeBlocks();
 });
+
+function setupAddToDictionariezToAllCodeBlocks() {
+	function waitForElement(selector, timeout = 3000) {
+		return new Promise((resolve, reject) => {
+			const interval = setInterval(() => {
+				const element = document.querySelector(selector);
+				if (element) {
+					clearInterval(interval);
+					resolve(element);
+				}
+			}, 300);
+			setTimeout(() => {
+				clearInterval(interval);
+				reject(new Error(`Element ${selector} not found`));
+			}, timeout);
+		});
+	}
+
+	waitForElement('body[data-dictionariez-version]')
+		.then(() => {
+			$(document).on(
+				'mouseenter',
+				'[component="post/content"], [component="composer"] .preview',
+				function () {
+					const $this = $(this);
+					if ($this.find('.add-to-dictionariez').length) {
+						return;
+					}
+					if ($this.find('pre code').length === 0) {
+						return;
+					}
+
+					const $addToDictionariez =
+						$(`<a href="https://github.com/pnlpal/dictionaries" 
+			target="_blank" rel="nofollow" 
+			class="btn btn-sm btn-outline-info add-to-dictionariez">Add to Dictionariez</a>
+		`);
+
+					$this.find('code').before($addToDictionariez);
+				}
+			);
+		})
+		.catch((_) => {
+			// ignore
+		});
+}
 
 function setupDictionariezTrove() {
 	const categoryName = 'Dictionariez Trove';
