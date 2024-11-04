@@ -1,3 +1,4 @@
 {
-    "url-not-right": "The url is invalid"
+	"url-not-right": "The url is invalid",
+	"need-youtube-url": "Please enter a valid YouTube video URL"
 }

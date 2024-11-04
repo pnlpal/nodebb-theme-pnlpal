@@ -22,6 +22,13 @@ module.exports = function (library) {
 				const m3 = url.match(/index=(\d+)/);
 				const indexInPlaylist = m3 ? parseInt(m3[1]) - 1 : 0;
 				return { playlistId: m[1], indexInPlaylist };
+			} else {
+				// link can be like this: https://pnlpal.dev/captionz?link=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3Dh5RoVGO4XVA
+				const linkUrl = new URL(url);
+				const link = linkUrl.searchParams.get('link');
+				if (link) {
+					return parseYtbUrl(link);
+				}
 			}
 		}
 		return { invalid: true };
@@ -41,7 +48,7 @@ module.exports = function (library) {
 				// YouTube Trove
 				var parsed = parseYtbUrl(obj.topic.externalLink);
 				if (!parsed.videoId)
-					return callback(new Error('[[pnlpal:url-not-right]]'));
+					return callback(new Error('[[pnlpal:need-youtube-url]]'));
 
 				obj.topic.videoId = parsed.videoId;
 				obj.topic.playlistId = parsed.playlistId;
