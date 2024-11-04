@@ -84,8 +84,17 @@ module.exports = function (library) {
 		return { topics, uid };
 	};
 
-	library.onRenderTopic = async function ({ res, templateData }) {
-		if (templateData.videoId) {
+	library.onRenderTopic = async function ({ req, res, templateData }) {
+		if (
+			[
+				'/captionz',
+				'/cats-love-youtube',
+				'/captionz/',
+				'/cats-love-youtube/',
+			].includes(templateData.url)
+		) {
+			library.onRenderCaptionz({ req, res, templateData });
+		} else if (templateData.videoId) {
 			res.locals.metaTags.push({
 				property: 'twitter:image',
 				content:
@@ -113,7 +122,7 @@ module.exports = function (library) {
 				firstImageUrl.content =
 					'https://i.ytimg.com/vi/' + templateData.videoId + '/hqdefault.jpg';
 		}
-		return { res, templateData };
+		return { req, res, templateData };
 	};
 
 	library.onRenderCaptionz = async function ({ req, res, templateData }) {
@@ -125,7 +134,7 @@ module.exports = function (library) {
 			{
 				property: 'og:description',
 				content:
-					'Captionz is a space to watch YouTube videos with dual captions, A-B repeat and more. Join our pnlpal community!',
+					'Captionz lets you watch YouTube videos with dual captions, A-B repeat, and more. Join the pnlpal community and enhance your learning!',
 			},
 		];
 		if (req.query.link) {
