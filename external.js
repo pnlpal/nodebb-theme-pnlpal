@@ -110,7 +110,8 @@ module.exports = function (library) {
 			});
 			res.locals.metaTags.push({
 				property: 'twitter:card',
-				content: 'https://i.ytimg.com/vi/' + parsed.videoId + '/hqdefault.jpg',
+				content:
+					'https://i.ytimg.com/vi/' + templateData.videoId + '/hqdefault.jpg',
 				noEscape: true,
 			});
 			res.locals.metaTags.push({
