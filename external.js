@@ -154,6 +154,12 @@ module.exports = function (library) {
 					noEscape: true,
 				});
 				res.locals.metaTags.push({
+					property: 'twitter:card',
+					content:
+						'https://i.ytimg.com/vi/' + parsed.videoId + '/hqdefault.jpg',
+					noEscape: true,
+				});
+				res.locals.metaTags.push({
 					property: 'og:image',
 					content:
 						'https://i.ytimg.com/vi/' + parsed.videoId + '/hqdefault.jpg',
