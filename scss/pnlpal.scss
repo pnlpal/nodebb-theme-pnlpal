@@ -104,20 +104,17 @@ nav.navbar {
 						}
 					}
 				}
-			}
-		}
-	}
-	&.captionz-trove > ul {
-		> li {
-			.content {
+
 				.video-thumb {
+					margin-left: 60px;
+
 					img {
 						border-radius: 4px;
 						height: auto;
 
 						object-fit: cover;
-						width: 140px;
-						height: 78px;
+						width: 180px;
+						height: 100px;
 						object-position: 100% 50%;
 					}
 					.fa-list {
@@ -126,14 +123,6 @@ nav.navbar {
 						left: 133px;
 						color: #eee;
 					}
-				}
-				.user-avatar {
-					margin-left: 94px;
-				}
-				.title,
-				.info,
-				.stats-row {
-					margin-left: 160px;
 				}
 			}
 		}

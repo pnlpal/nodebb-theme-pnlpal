@@ -9,23 +9,26 @@
 
 		<div class="col-md-12 col-sm-12 col-12 content">
 			<div class="avatar float-start me-2">
-				<!-- IF topics.videoThumb -->
-				<a href="{config.relative_path}/topic/{./slug}" itemprop="url" class="video-thumb">
-					<img src="{./videoThumb}" class="user-img not-responsive" />
-					<!-- IF topics.playlistId -->
-					<i class="fa fa-fw fa-list" data-content=""></i>
-					<!-- ENDIF topics.playlistId -->
-				</a>
-				<!-- ELSE -->
-				<a href="<!-- IF topics.user.userslug -->{config.relative_path}/user/{topics.user.userslug}<!-- ELSE -->#<!-- ENDIF topics.user.userslug -->" class="float-start">
+				<a href="<!-- IF topics.user.userslug -->{config.relative_path}/user/{topics.user.userslug}<!-- ELSE -->#<!-- ENDIF topics.user.userslug -->" class="float-start avatar-link">
 					{{{ if ./thumbs.length }}}
 					<img src="{./thumbs.0.url}" class="user-img not-responsive" />
 					{{{ else }}}
 					{buildAvatar(../user, "48px", true, "not-responsive")}
 					{{{ end }}}
 				</a>
-				<!-- ENDIF topics.videoThumb -->
 			</div>
+
+			{{{ if ./videoThumb }}}
+			<div class="video-wrapper float-end">
+			
+				<a href="{config.relative_path}/topic/{./slug}" itemprop="url" class="video-thumb">
+					<img src="{./videoThumb}" class="user-img not-responsive" />
+					<!-- IF topics.playlistId -->
+					<i class="fa fa-fw fa-list" data-content=""></i>
+					<!-- ENDIF topics.playlistId -->
+				</a>
+			</div>
+			{{{ end }}}
 
 			<h2 component="topic/header" class="title mb-1">
 				<i component="topic/scheduled" class="fa fa-clock-o {{{ if !topics.scheduled }}}hidden{{{ end }}}" title="[[topic:scheduled]]"></i>
