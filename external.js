@@ -187,12 +187,17 @@ module.exports = function (library) {
 				// only in Captionz Trove
 				var regularUrl =
 					/<a href="((?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|playlist)(?:\.php)?(?:\?.*(v|list)=|\/))([a-zA-Z0-9\_-]+)[^"]*)".*?>.+?<\/a>/;
-				var postContent = data.postData.content;
+				var captionzReg =
+					/<a href="(?:https?:\/\/)?(?:pnlpal.dev\/captionz\/?\?link=)([^"]+)".*?>.+?<\/a>/;
+				var youtubeLinkReg =
+					/(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|playlist)(?:\.php)?(?:\?.*(v|list)=|\/))([a-zA-Z0-9\_-]+)/;
+
+				var postContent = data.postData.content || '';
 
 				var embed =
-					"<div class='embed-captionz'><iframe src='/cats-love-youtube-ii?link=<link>' width='100%' frameborder='0' onload='this.style.height=(this.contentWindow.document.body.scrollHeight+20)+\"px\";' allowfullscreen></iframe></div>";
+					"<div class='embed-captionz'><iframe src='/captionz-ii?link=<link>' width='100%' frameborder='0' onload='this.style.height=(this.contentWindow.document.body.scrollHeight+20)+\"px\";' allowfullscreen></iframe></div>";
 
-				if (postContent && postContent.match(regularUrl)) {
+				if (postContent.match(regularUrl)) {
 					data.postData.content = postContent.replace(
 						regularUrl,
 						embed.replace(
@@ -201,6 +206,16 @@ module.exports = function (library) {
 						)
 					);
 					// console.log(data.postData)
+				} else if (postContent.match(captionzReg)) {
+					const youtubeLink = decodeURIComponent(
+						postContent.match(captionzReg)[1]
+					);
+					if (youtubeLink.match(youtubeLinkReg)) {
+						data.postData.content = postContent.replace(
+							captionzReg,
+							embed.replace('<link>', encodeURIComponent(youtubeLink))
+						);
+					}
 				}
 			}
 		}
