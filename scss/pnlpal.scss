@@ -108,14 +108,28 @@ nav.navbar {
 				.video-thumb {
 					margin-left: 60px;
 
+					@include media-breakpoint-down(sm) {
+						display: none;
+					}
+					@include media-breakpoint-between(sm, md) {
+						margin-left: 10px;
+					}
+
 					img {
 						border-radius: 4px;
 						height: auto;
 
 						object-fit: cover;
+						object-position: 100% 50%;
+
 						width: 180px;
 						height: 100px;
-						object-position: 100% 50%;
+
+						@include media-breakpoint-between(sm, md) {
+							margin-left: 10px;
+							width: 125px;
+							height: 70px;
+						}
 					}
 					.fa-list {
 						position: absolute;
