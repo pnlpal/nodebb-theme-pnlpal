@@ -114,26 +114,36 @@ module.exports = function (library) {
 					'https://i.ytimg.com/vi/' + templateData.videoId + '/hqdefault.jpg',
 				noEscape: true,
 			});
-			res.locals.metaTags.push({
-				property: 'og:image',
-				content:
-					'https://i.ytimg.com/vi/' + templateData.videoId + '/hqdefault.jpg',
-				noEscape: true,
-			});
-
 			// change the first meta image, because Facebook read the first one.
 			const firstImage = res.locals.metaTags.find(
 				(n) => n.property === 'og:image'
 			);
-			if (firstImage)
+			if (firstImage) {
 				firstImage.content =
 					'https://i.ytimg.com/vi/' + templateData.videoId + '/hqdefault.jpg';
+			} else {
+				res.locals.metaTags.push({
+					property: 'og:image',
+					content:
+						'https://i.ytimg.com/vi/' + templateData.videoId + '/hqdefault.jpg',
+					noEscape: true,
+				});
+			}
+
 			const firstImageUrl = res.locals.metaTags.find(
 				(n) => n.property === 'og:image:url'
 			);
-			if (firstImageUrl)
+			if (firstImageUrl) {
 				firstImageUrl.content =
 					'https://i.ytimg.com/vi/' + templateData.videoId + '/hqdefault.jpg';
+			} else {
+				res.locals.metaTags.push({
+					property: 'og:image:url',
+					content:
+						'https://i.ytimg.com/vi/' + templateData.videoId + '/hqdefault.jpg',
+					noEscape: true,
+				});
+			}
 		}
 		return { req, res, templateData };
 	};
