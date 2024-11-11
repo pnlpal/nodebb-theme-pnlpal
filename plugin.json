@@ -12,7 +12,7 @@
 		{ "hook": "filter:topics.get", "method": "onGetTopics" },
 		{ "hook": "filter:parse.post", "method": "parsePost", "priority": 6 },
 		{ "hook": "filter:category.get", "method": "onGetCategory" },
-		{ "hook": "filter:middleware.render", "method": "onRenderTopic" }
+		{ "hook": "filter:middleware.renderHeader", "method": "onRenderTopic" }
 	],
 	"scripts": [
 		"public/modules/autohidingnavbar.js",

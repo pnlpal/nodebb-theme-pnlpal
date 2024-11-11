@@ -91,65 +91,59 @@ module.exports = function (library) {
 		return { topics, uid };
 	};
 
-	library.onRenderTopic = async function ({ req, res, templateData }) {
+	library.onRenderTopic = async function (args) {
+		const { req, data, templateData } = args;
 		if (
 			[
 				'/captionz',
 				'/cats-love-youtube',
 				'/captionz/',
 				'/cats-love-youtube/',
-			].includes(templateData.url)
+			].includes(data.url)
 		) {
-			library.onRenderCaptionz({ req, res, templateData });
-		} else if (templateData.videoId) {
-			res.locals.metaTags.push({
+			library.onRenderCaptionz(req, templateData);
+			args.templateData = templateData;
+		} else if (data.videoId) {
+			templateData.metaTags.push({
 				property: 'twitter:image',
-				content:
-					'https://i.ytimg.com/vi/' + templateData.videoId + '/hqdefault.jpg',
+				content: 'https://i.ytimg.com/vi/' + data.videoId + '/hqdefault.jpg',
 				noEscape: true,
 			});
-			res.locals.metaTags.push({
+			templateData.metaTags.push({
 				property: 'twitter:card',
-				content:
-					'https://i.ytimg.com/vi/' + templateData.videoId + '/hqdefault.jpg',
+				content: 'https://i.ytimg.com/vi/' + data.videoId + '/hqdefault.jpg',
 				noEscape: true,
 			});
-			// change the first meta image, because Facebook read the first one.
-			const firstImage = res.locals.metaTags.find(
-				(n) => n.property === 'og:image'
+			// remove the old og:image
+			templateData.metaTags = templateData.metaTags.filter(
+				(n) =>
+					[
+						'og:image',
+						'og:image:url',
+						'og:image:width',
+						'og:image:height',
+					].includes(n.property) === false
 			);
-			if (firstImage) {
-				firstImage.content =
-					'https://i.ytimg.com/vi/' + templateData.videoId + '/hqdefault.jpg';
-			} else {
-				res.locals.metaTags.push({
-					property: 'og:image',
-					content:
-						'https://i.ytimg.com/vi/' + templateData.videoId + '/hqdefault.jpg',
-					noEscape: true,
-				});
-			}
 
-			const firstImageUrl = res.locals.metaTags.find(
-				(n) => n.property === 'og:image:url'
-			);
-			if (firstImageUrl) {
-				firstImageUrl.content =
-					'https://i.ytimg.com/vi/' + templateData.videoId + '/hqdefault.jpg';
-			} else {
-				res.locals.metaTags.push({
-					property: 'og:image:url',
-					content:
-						'https://i.ytimg.com/vi/' + templateData.videoId + '/hqdefault.jpg',
-					noEscape: true,
-				});
-			}
+			templateData.metaTags.push({
+				property: 'og:image',
+				content: 'https://i.ytimg.com/vi/' + data.videoId + '/hqdefault.jpg',
+				noEscape: true,
+			});
+
+			templateData.metaTags.push({
+				property: 'og:image:url',
+				content: 'https://i.ytimg.com/vi/' + data.videoId + '/hqdefault.jpg',
+				noEscape: true,
+			});
+
+			args.templateData = templateData;
 		}
-		return { req, res, templateData };
+		return args;
 	};
 
-	library.onRenderCaptionz = async function ({ req, res, templateData }) {
-		res.locals.metaTags = [
+	library.onRenderCaptionz = async function (req, templateData) {
+		templateData.metaTags = [
 			{
 				property: 'og:title',
 				content: "Captionz - Programming N' Language",
@@ -163,25 +157,35 @@ module.exports = function (library) {
 		if (req.query.link) {
 			var parsed = parseYtbUrl(req.query.link);
 			if (parsed.videoId) {
-				res.locals.metaTags.push({
+				templateData.metaTags.push({
 					property: 'twitter:image',
 					content:
 						'https://i.ytimg.com/vi/' + parsed.videoId + '/hqdefault.jpg',
 					noEscape: true,
 				});
-				res.locals.metaTags.push({
+				templateData.metaTags.push({
 					property: 'twitter:card',
 					content:
 						'https://i.ytimg.com/vi/' + parsed.videoId + '/hqdefault.jpg',
 					noEscape: true,
 				});
-				res.locals.metaTags.push({
+				// remove the old og:image
+				templateData.metaTags = templateData.metaTags.filter(
+					(n) =>
+						[
+							'og:image',
+							'og:image:url',
+							'og:image:width',
+							'og:image:height',
+						].includes(n.property) === false
+				);
+				templateData.metaTags.push({
 					property: 'og:image',
 					content:
 						'https://i.ytimg.com/vi/' + parsed.videoId + '/hqdefault.jpg',
 					noEscape: true,
 				});
-				res.locals.metaTags.push({
+				templateData.metaTags.push({
 					property: 'og:image:url',
 					content:
 						'https://i.ytimg.com/vi/' + parsed.videoId + '/hqdefault.jpg',
@@ -189,8 +193,6 @@ module.exports = function (library) {
 				});
 			}
 		}
-
-		return { res, templateData };
 	};
 
 	library.parsePost = async function (data) {
