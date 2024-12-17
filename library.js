@@ -61,7 +61,7 @@ library.addProfileItem = async (data) => {
 };
 
 library.defineWidgetAreas = async function (areas) {
-	const locations = ['header', 'sidebar', 'footer'];
+	const locations = ['header', 'sidebar', 'footer', 'left'];
 	const templates = [
 		'categories.tpl',
 		'category.tpl',

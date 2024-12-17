@@ -4,7 +4,13 @@
 	{{{ end }}}
 </div>
 <div class="row">
-	<div class="category {{{if widgets.sidebar.length }}}col-lg-9 col-sm-12{{{ else }}}col-lg-12{{{ end }}} <!-- IF isCaptionzTrove --> captionz-trove <!-- END --> <!-- IF isDictionariezTrove --> dictionariez-trove <!-- END -->">
+	<div data-widget-area="left" class="category-left col-lg-3 col-md-3 hidden-sm hidden-xs">
+		{{{each widgets.left}}}
+		{{widgets.left.html}}
+		{{{end}}}
+	</div>
+
+	<div class="category {{{if widgets.sidebar.length }}}col-lg-6 col-md-9 col-sm-12{{{ else }}}col-lg-9 col-md-9{{{ end }}} <!-- IF isCaptionzTrove --> captionz-trove <!-- END --> <!-- IF isDictionariezTrove --> dictionariez-trove <!-- END -->">
 		<!-- IMPORT partials/category/subcategory.tpl -->
 
 		{{{ if (topics.length || privileges.topics:create) }}}
@@ -42,7 +48,7 @@
 		<!-- IMPORT partials/paginator.tpl -->
 		{{{ end }}}
 	</div>
-	<div data-widget-area="sidebar" class="col-lg-3 col-sm-12 {{{ if !widgets.sidebar.length }}}hidden{{{ end }}}">
+	<div data-widget-area="sidebar" class="col-lg-3 col-md-12 col-sm-12 {{{ if !widgets.sidebar.length }}}hidden{{{ end }}}">
 		{{{ each widgets.sidebar }}}
 		{{widgets.sidebar.html}}
 		{{{ end }}}

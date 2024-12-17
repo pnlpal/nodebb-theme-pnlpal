@@ -9,7 +9,8 @@ nav.navbar {
 	border-bottom: 0;
 }
 
-[data-widget-area='sidebar'] {
+[data-widget-area='sidebar'],
+[data-widget-area='left'] {
 	.card {
 		border-radius: 5px;
 		margin-bottom: 10px;
@@ -80,7 +81,7 @@ nav.navbar {
 					a.add-to-dictionariez {
 						position: absolute;
 						right: 10px;
-						top: -27px;
+						top: -25px;
 						border-radius: 4px;
 					}
 				}
@@ -106,7 +107,7 @@ nav.navbar {
 				}
 
 				.video-thumb {
-					margin-left: 60px;
+					margin-left: 10px;
 
 					@include media-breakpoint-down(sm) {
 						display: none;
