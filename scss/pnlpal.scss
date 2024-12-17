@@ -9,6 +9,12 @@ nav.navbar {
 	border-bottom: 0;
 }
 
+[data-widget-area='left'] {
+	position: sticky;
+	top: 65px;
+	align-self: flex-start;
+}
+
 [data-widget-area='sidebar'],
 [data-widget-area='left'] {
 	.card {
