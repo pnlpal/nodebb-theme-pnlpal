@@ -9,15 +9,19 @@ nav.navbar {
 	border-bottom: 0;
 }
 
-[data-widget-area='left'] {
-	position: sticky;
-	top: 65px;
-	align-self: flex-start;
+@media (min-width: 768px) {
+	[data-widget-area='left'] {
+		position: sticky;
+		top: 65px;
+		align-self: flex-start;
+	}
 }
-[data-widget-area='sidebar'] {
-	position: sticky;
-	bottom: 0;
-	align-self: flex-end;
+@media (min-width: 992px) {
+	[data-widget-area='sidebar'] {
+		position: sticky;
+		bottom: 0;
+		align-self: flex-end;
+	}
 }
 
 [data-widget-area='sidebar'],
