@@ -5,7 +5,7 @@
 	{{{end}}}
 </div>
 <div class="popular row">
-	<div data-widget-area="left" class="category-left col-lg-3 col-md-3 hidden-sm hidden-xs">
+	<div data-widget-area="left" class="sticky-top py-2 col-lg-3 col-md-3 hidden-sm hidden-xs">
 		{{{each widgets.left}}}
 		{{widgets.left.html}}
 		{{{end}}}

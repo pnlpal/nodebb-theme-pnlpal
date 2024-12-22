@@ -9,19 +9,18 @@ nav.navbar {
 	border-bottom: 0;
 }
 
-@media (min-width: 768px) {
-	[data-widget-area='left'] {
-		position: sticky;
-		top: 65px;
-		align-self: flex-start;
-	}
-}
 @media (min-width: 992px) {
+	// lg screen
 	[data-widget-area='sidebar'] {
 		position: sticky;
 		bottom: 0;
 		align-self: flex-end;
 	}
+}
+
+[data-widget-area='left'] {
+	align-self: flex-start;
+	top: calc(var(--panel-offset));
 }
 
 [data-widget-area='sidebar'],
