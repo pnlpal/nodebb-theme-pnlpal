@@ -33,11 +33,9 @@ nav.navbar {
 	.categories-list {
 		li {
 			a {
-				font-family: cursive;
-
 				&.active {
 					color: darken($primary, 20%);
-					font-size: larger;
+					font-weight: bolder;
 				}
 			}
 		}
