@@ -14,13 +14,11 @@
 	<div class="col-lg-6 col-md-9 col-sm-12">
 		<div class="topic-list-header visible-sm visible-xs sticky-top btn-toolbar justify-content-between py-2 mb-2 gap-1">
 			<div class="d-flex gap-1 align-items-stretch">
-				<div class="visible-sm visible-xs">
-					{{{ if canPost }}}
-					<!-- IMPORT partials/buttons/newTopic.tpl -->
-					{{{ else }}}
-					<a component="category/post/guest" href="{config.relative_path}/login" class="btn btn-primary">[[category:guest-login-post]]</a>
-					{{{ end }}}
-				</div>
+				{{{ if canPost }}}
+				<!-- IMPORT partials/buttons/newTopic.tpl -->
+				{{{ else }}}
+				<a component="category/post/guest" href="{config.relative_path}/login" class="btn btn-primary">[[category:guest-login-post]]</a>
+				{{{ end }}}
 				<a href="{config.relative_path}/{selectedFilter.url}{querystring}" class="d-inline-block">
 					<div class="alert alert-warning h-100 m-0 px-2 py-1 d-flex gap-1 align-items-center hide" id="new-topics-alert"><i class="fa fa-fw fa-rotate-right"></i>[[recent:load-new-posts]]</div>
 				</a>
