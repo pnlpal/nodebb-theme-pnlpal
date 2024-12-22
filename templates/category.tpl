@@ -4,7 +4,7 @@
 	{{{ end }}}
 </div>
 <div class="row">
-	<div data-widget-area="left" class="sticky-top py-2 col-lg-3 col-md-3 hidden-sm hidden-xs">
+	<div data-widget-area="left" class="sticky-top col-lg-3 col-md-3 hidden-sm hidden-xs">
 		{{{each widgets.left}}}
 		{{widgets.left.html}}
 		{{{end}}}
@@ -14,10 +14,10 @@
 		<!-- IMPORT partials/category/subcategory.tpl -->
 
 		{{{ if (topics.length || privileges.topics:create) }}}
-		<div class="topic-list-header sticky-top btn-toolbar justify-content-between py-2 mb-2 flex-nowrap">
+		<div class="topic-list-header visible-sm visible-xs sticky-top btn-toolbar justify-content-between py-2 mb-2 flex-nowrap">
 			<div class="d-flex gap-1 align-items-stretch">
 				{{{ if privileges.topics:create }}}
-				<a href="{config.relative_path}/compose?cid={cid}" component="category/post" id="new_topic" class="btn btn-primary text-nowrap visible-sm visible-xs" data-ajaxify="false" role="button">[[category:new-topic-button]]</a>
+				<a href="{config.relative_path}/compose?cid={cid}" component="category/post" id="new_topic" class="btn btn-primary text-nowrap" data-ajaxify="false" role="button">[[category:new-topic-button]]</a>
 				{{{ else }}}
 					{{{ if !loggedIn }}}
 					<a component="category/post/guest" href="{config.relative_path}/login" class="btn btn-primary">[[category:guest-login-post]]</a>
@@ -27,10 +27,6 @@
 				<a href="{url}" class="d-inline-block">
 					<div class="alert alert-warning h-100 m-0 px-2 py-1 d-flex gap-1 align-items-center hide" id="new-topics-alert"><i class="fa fa-fw fa-rotate-right"></i>[[recent:load-new-posts]]</div>
 				</a>
-			</div>
-			<div component="category/controls" class="d-flex gap-1 align-items-stretch">
-				<!-- IMPORT partials/category/sort.tpl -->
-				<!-- IMPORT partials/category/tools.tpl -->
 			</div>
 		</div>
 		{{{ end }}}

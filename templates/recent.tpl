@@ -6,13 +6,13 @@
 </div>
 
 <div class="recent row">
-	<div data-widget-area="left" class="sticky-top py-2 col-lg-3 col-md-3 hidden-sm hidden-xs">
+	<div data-widget-area="left" class="sticky-top col-lg-3 col-md-3 hidden-sm hidden-xs">
 		{{{each widgets.left}}}
 		{{widgets.left.html}}
 		{{{end}}}
 	</div>
 	<div class="col-lg-6 col-md-9 col-sm-12">
-		<div class="topic-list-header sticky-top btn-toolbar justify-content-between py-2 mb-2 gap-1">
+		<div class="topic-list-header visible-sm visible-xs sticky-top btn-toolbar justify-content-between py-2 mb-2 gap-1">
 			<div class="d-flex gap-1 align-items-stretch">
 				<div class="visible-sm visible-xs">
 					{{{ if canPost }}}
@@ -24,11 +24,6 @@
 				<a href="{config.relative_path}/{selectedFilter.url}{querystring}" class="d-inline-block">
 					<div class="alert alert-warning h-100 m-0 px-2 py-1 d-flex gap-1 align-items-center hide" id="new-topics-alert"><i class="fa fa-fw fa-rotate-right"></i>[[recent:load-new-posts]]</div>
 				</a>
-			</div>
-			<div class="d-flex gap-1 align-items-stretch">
-			<!-- IMPORT partials/topic-filters.tpl -->
-			<!-- IMPORT partials/category/filter-dropdown-right.tpl -->
-			<!-- IMPORT partials/category/tools.tpl -->
 			</div>
 		</div>
 
