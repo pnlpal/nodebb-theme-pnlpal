@@ -33,7 +33,7 @@ function setupAddToDictionariezToAllCodeBlocks() {
 		.then(() => {
 			$(document).on(
 				'mouseenter',
-				'[component="post/content"], [component="composer"] .preview',
+				'[data-cid="4"] [component="post/content"], [component="composer"] .preview',
 				function () {
 					const $this = $(this);
 					if ($this.find('.add-to-dictionariez').length) {
