@@ -146,12 +146,13 @@ module.exports = function (library) {
 		templateData.metaTags = [
 			{
 				property: 'og:title',
-				content: "Captionz - Programming N' Language",
+				content:
+					'Captionz - Watch YouTube with Dual Subtitles & Community Notes',
 			},
 			{
 				property: 'og:description',
 				content:
-					'Captionz lets you watch YouTube videos with dual captions, A-B repeat, and more. Join the pnlpal community and enhance your learning!',
+					'Captionz is your personal YouTube search engine for language learners. Instantly search YouTube captions, watch with dual subtitles, and explore community notes to boost your language skills.',
 			},
 		];
 		if (req.query.link) {
