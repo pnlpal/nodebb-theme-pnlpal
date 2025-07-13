@@ -42,7 +42,7 @@
 				{{{ else }}}
 
 				<!-- IF topics.externalLink -->
-				<a href="{./externalLink}" rel="nofollow" target="_blank" itemprop="url" class="external-link" data-tid="{./tid}">
+				<a href="{./externalLink}" rel="nofollow" target="_blank" class="external-link" data-tid="{./tid}">
 					<i class="fa fa-external-link"></i>
 				</a>
 				<!-- ENDIF topics.externalLink -->
