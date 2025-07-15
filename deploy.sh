@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # Variables
 SERVER="167.172.46.156"
