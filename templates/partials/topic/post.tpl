@@ -18,7 +18,9 @@
 		<div class="d-flex align-items-center gap-1 flex-wrap w-100">
 			<strong class="text-nowrap">
 				<span itemprop="author" itemscope itemtype="https://schema.org/Person">
-					<a href="<!-- IF posts.user.userslug -->{config.relative_path}/user/{posts.user.userslug}<!-- ELSE -->#<!-- ENDIF posts.user.userslug -->" itemprop="name" data-username="{posts.user.username}" data-uid="{posts.user.uid}">{posts.user.displayname}</a>
+					<a href="<!-- IF posts.user.userslug -->{config.relative_path}/user/{posts.user.userslug}<!-- ELSE -->#<!-- ENDIF posts.user.userslug -->" itemprop="url" data-username="{posts.user.username}" data-uid="{posts.user.uid}">
+						<span itemprop="name">{posts.user.displayname}</span>
+					</a>
 				</span>
 			</strong>
 
