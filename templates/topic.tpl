@@ -21,7 +21,7 @@
 						{{{each icons}}}<span class="lh-1 align-middle">{@value}</span>{{{end}}}
 					</span>
 					<!-- IF externalLink -->
-					<a component="topic/title" href="{externalLink}" rel="nofollow" target="_blank" itemprop="url" class="external-link" data-tid="{tid}">
+					<a component="topic/title" href="{externalLink}" rel="nofollow" target="_blank" class="external-link" data-tid="{tid}">
 						<i class="fa fa-external-link"></i>
 						<span itemprop="headline">{title}</span>
 					</a>
