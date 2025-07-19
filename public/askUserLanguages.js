@@ -1,4 +1,10 @@
 $(window).on('action:topics.loaded', function () {
+	if (!app.user?.uid) {
+		return;
+	}
+	if (app.user.learningLanguages && app.user.fluentLanguages) {
+		return; // User has already set their languages
+	}
 	const someLanguages = [
 		'English',
 		'Spanish',
@@ -38,9 +44,23 @@ $(window).on('action:topics.loaded', function () {
 				callback: function () {
 					const learning = $('#learning-languages').val();
 					const fluent = $('#fluent-languages').val();
-					// Do something with the selected values
-					console.log('Learning:', learning);
-					console.log('Fluent:', fluent);
+					if (!learning.length || !fluent.length) {
+						bootbox.alert(
+							'Please select at least one language in each category.'
+						);
+						return false;
+					}
+					$.ajax({
+						type: 'POST',
+						url: `/api/user/${app.user.uid}/languages`,
+						data: {
+							learningLanguages: learning,
+							fluentLanguages: fluent,
+						},
+						success: function (resp) {
+							// handle success
+						},
+					});
 				},
 			},
 		},

@@ -6,6 +6,8 @@ const controllers = require('./lib/controllers');
 
 const library = module.exports;
 
+const userLanguages = require('./userLanguages')(library);
+
 require('./external')(library);
 // require('./captionz')(library);
 
@@ -30,6 +32,8 @@ library.init = async function (params) {
 		],
 		controllers.renderThemeSettings
 	);
+
+	userLanguages.addRoutes({ router, middleware });
 };
 
 library.addAdminNavigation = async function (header) {
