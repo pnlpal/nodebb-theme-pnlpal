@@ -17,7 +17,9 @@
 	"scripts": [
 		"public/modules/autohidingnavbar.js",
 		"public/persona.js",
-		"public/pnlpal.js"
+		"public/pnlpal.js",
+		"public/select2.min.js",
+		"public/askUserLanguages.js"
 	],
 	"modules": {
 		"../admin/plugins/persona.js": "public/admin.js",
