@@ -1,10 +1,6 @@
-$(window).on('action:topics.loaded', function () {
-	if (!app.user?.uid) {
-		return;
-	}
-	if (app.user.learningLanguages && app.user.fluentLanguages) {
-		return; // User has already set their languages
-	}
+'use strict';
+
+$(document).ready(function () {
 	const someLanguages = [
 		'English',
 		'Spanish',
@@ -20,11 +16,54 @@ $(window).on('action:topics.loaded', function () {
 		'Russian',
 		'Arabic',
 	];
-	bootbox.dialog({
-		size: 'large',
-		className: 'ask-user-languages modal-dialog-centered',
-		title: 'Welcome to our programming and language community!',
-		message: `
+
+	const setupSelect2 = (selector, dropdownParent, savedValue = '') => {
+		const $select = $(selector);
+		if (!$select.length) {
+			return;
+		}
+		const selectedValues = (savedValue || '')
+			.split(',')
+			.map((s) => s.trim())
+			.filter(Boolean);
+		// Populate options from someLanguages array
+		const allValues = [...new Set([...someLanguages, ...selectedValues])];
+		allValues.forEach(function (lang) {
+			$select.append(
+				$('<option>', {
+					value: lang,
+					text: lang,
+					selected: selectedValues.includes(lang),
+				})
+			);
+		});
+
+		$select.select2({
+			tags: true,
+			placeholder: 'Type or select languages...',
+			width: 'resolve',
+			dropdownParent: dropdownParent,
+		});
+	};
+
+	let dialogInitialized = false;
+	$(window).on('action:topics.loaded', function () {
+		if (!app.user?.uid) {
+			return;
+		}
+		if (app.user.learningLanguages && app.user.fluentLanguages) {
+			return; // User has already set their languages
+		}
+		if (dialogInitialized) {
+			return; // Dialog already initialized
+		}
+		dialogInitialized = true;
+
+		bootbox.dialog({
+			size: 'large',
+			className: 'ask-user-languages modal-dialog-centered',
+			title: 'Welcome to our programming and language community!',
+			message: `
     <p>Let others know what languages you're learning and which ones you're fluent in. This helps you connect with people who share your interests or need your expertise!</p>
     <div class="mb-3">
       <label for="learning-languages" class="form-label">Languages you are learning</label>
@@ -37,56 +76,53 @@ $(window).on('action:topics.loaded', function () {
       </select>
     </div>
   `,
-		buttons: {
-			confirm: {
-				label: 'Save',
-				className: 'btn-primary',
-				callback: function () {
-					const learning = $('#learning-languages').val();
-					const fluent = $('#fluent-languages').val();
-					if (!learning.length || !fluent.length) {
-						bootbox.alert(
-							'Please select at least one language in each category.'
-						);
-						return false;
-					}
-					$.ajax({
-						type: 'POST',
-						url: `/api/user/${app.user.uid}/languages`,
-						data: {
-							learningLanguages: learning,
-							fluentLanguages: fluent,
-						},
-						success: function (resp) {
-							// handle success
-						},
-					});
+			buttons: {
+				confirm: {
+					label: 'Save',
+					className: 'btn-primary',
+					callback: function () {
+						const learning = $('#learning-languages').val();
+						const fluent = $('#fluent-languages').val();
+						if (!learning.length || !fluent.length) {
+							bootbox.alert(
+								'Please select at least one language in each category.'
+							);
+							return false;
+						}
+						$.ajax({
+							type: 'POST',
+							url: `/api/user/${app.user.uid}/languages`,
+							data: {
+								learningLanguages: learning.join(','),
+								fluentLanguages: fluent.join(','),
+							},
+							success: function (resp) {
+								// handle success
+							},
+						});
+					},
 				},
 			},
-		},
-		onShown: function () {
-			const $modal = $('.bootbox.modal');
-			const $learning = $('#learning-languages');
-			const $fluent = $('#fluent-languages');
+			onShown: function () {
+				const $modal = $('.bootbox.modal');
+				setupSelect2('#learning-languages', $modal, app.user.learningLanguages);
+				setupSelect2('#fluent-languages', $modal, app.user.fluentLanguages);
+			},
+		});
+	});
 
-			// Populate options from someLanguages array
-			someLanguages.forEach(function (lang) {
-				$learning.append($('<option>', { value: lang, text: lang }));
-				$fluent.append($('<option>', { value: lang, text: lang }));
-			});
-
-			$learning.select2({
-				tags: true,
-				placeholder: 'Type or select languages...',
-				width: 'resolve',
-				dropdownParent: $modal,
-			});
-			$fluent.select2({
-				tags: true,
-				placeholder: 'Type or select languages...',
-				width: 'resolve',
-				dropdownParent: $modal,
-			});
-		},
+	$(window).on('action:ajaxify.end', function (ev, data) {
+		if (data.tpl_url === 'account/edit') {
+			setupSelect2('#user-learningLanguages', null, app.user.learningLanguages);
+			setupSelect2('#user-fluentLanguages', null, app.user.fluentLanguages);
+		}
+	});
+	$(window).on('action:profile.update', function (ev, data) {
+		if (Array.isArray(data.learningLanguages)) {
+			data.learningLanguages = data.learningLanguages.join(',');
+		}
+		if (Array.isArray(data.fluentLanguages)) {
+			data.fluentLanguages = data.fluentLanguages.join(',');
+		}
 	});
 });

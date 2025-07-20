@@ -29,6 +29,10 @@ module.exports = function (library) {
 		data.whitelist.push('learningLanguages', 'fluentLanguages');
 		return data;
 	};
+	library.onUpdateUserProfile = async function (data) {
+		data.fields.push('learningLanguages', 'fluentLanguages');
+		return data;
+	};
 
 	return {
 		addRoutes,

@@ -16,7 +16,8 @@
 		{
 			"hook": "filter:user.whitelistFields",
 			"method": "onGetUserWhitelistFields"
-		}
+		},
+		{ "hook": "filter:user.updateProfile", "method": "onUpdateUserProfile" }
 	],
 	"scripts": [
 		"public/modules/autohidingnavbar.js",

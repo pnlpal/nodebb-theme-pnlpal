@@ -71,6 +71,18 @@
 				</div>
 
 				<div class="mb-2">
+					<label class="form-label fw-bold" for="user-learningLanguages">[[pnlpal:learning-languages]]</label>
+					<select multiple class="form-control" id="user-learningLanguages" name="learningLanguages" placeholder="Languages you are learning">
+					</select>
+				</div>
+
+				<div class="mb-2">
+					<label class="form-label fw-bold" for="user-fluentLanguages">[[pnlpal:fluent-languages]]</label>
+					<select multiple class="form-control" id="user-fluentLanguages" name="fluentLanguages" placeholder="Languages you are fluent in">
+					</select>
+				</div>
+
+				<div class="mb-2">
 					<label class="form-label fw-bold" for="groupTitle">[[user:grouptitle]]</label>
 
 					<div class="d-flex flex-column gap-2" component="group/badge/list">

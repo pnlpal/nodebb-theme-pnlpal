@@ -1,4 +1,6 @@
 {
 	"url-not-right": "The url is invalid",
-	"need-youtube-url": "Please enter a valid YouTube video URL"
+	"need-youtube-url": "Please enter a valid YouTube video URL",
+	"learning-languages": "Learning Languages",
+	"fluent-languages": "Fluent Languages"
 }
