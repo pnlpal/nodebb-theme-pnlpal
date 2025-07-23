@@ -33,6 +33,21 @@ module.exports = function (library) {
 		data.fields.push('learningLanguages', 'fluentLanguages');
 		return data;
 	};
+	library.onBuildUserProfile = async function (data) {
+		const { templateData } = data;
+		if (templateData.learningLanguages) {
+			templateData.learningLanguages =
+				templateData.learningLanguages.split(',');
+		} else {
+			templateData.learningLanguages = [];
+		}
+		if (templateData.fluentLanguages) {
+			templateData.fluentLanguages = templateData.fluentLanguages.split(',');
+		} else {
+			templateData.fluentLanguages = [];
+		}
+		return data;
+	};
 
 	return {
 		addRoutes,

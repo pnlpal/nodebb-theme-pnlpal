@@ -86,6 +86,21 @@
 		<span>[[user:age]]</span>
 		<strong>{age}</strong>
 		<!-- ENDIF age -->
+
+		<br />
+		<!-- IF learningLanguages -->
+		<span>[[pnlpal:learning-languages]]: </span>
+		{{{each learningLanguages }}}
+		<span class="badge bg-primary mx-1">{@value}</span>
+		{{{end}}}
+		<!-- ENDIF learningLanguages -->
+
+		<!-- IF fluentLanguages -->
+		<span>[[pnlpal:fluent-languages]]: </span>
+		{{{each fluentLanguages }}}
+		<span class="badge bg-success mx-1">{@value}</span>
+		{{{end}}}
+		<!-- ENDIF fluentLanguages -->
 	</div>
 </div>
 
