@@ -27,7 +27,7 @@ $(document).ready(function () {
             <ul style="list-style:none; padding-left:0;">
                 <li style="margin-bottom: 12px;">
                     <strong>
-                        <a href="category/7/language-exchange" style="color: #fff; background: #007bff; padding: 4px 12px; border-radius: 20px; text-decoration: none; font-weight: bold; box-shadow: 0 2px 8px rgba(0,123,255,0.15); display:inline-block;">
+                        <a href="/category/7/language-exchange" style="color: #fff; background: #007bff; padding: 4px 12px; border-radius: 20px; text-decoration: none; font-weight: bold; box-shadow: 0 2px 8px rgba(0,123,255,0.15); display:inline-block;">
                             🌍 Language Exchange
                         </a>
                     </strong>
