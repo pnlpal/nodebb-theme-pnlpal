@@ -17,6 +17,85 @@ $(document).ready(function () {
 		'Arabic',
 	];
 
+	const success = () => {
+		bootbox.dialog({
+			size: 'large',
+			className: 'modal-dialog-centered',
+			title: "🎉Settings saved! You're ready to explore PNL.",
+			message: `
+            <p>Check out our six main categories:</p>
+            <ul style="list-style:none; padding-left:0;">
+                <li style="margin-bottom: 12px;">
+                    <strong>
+                        <a href="category/7/language-exchange" style="color: #fff; background: #007bff; padding: 4px 12px; border-radius: 20px; text-decoration: none; font-weight: bold; box-shadow: 0 2px 8px rgba(0,123,255,0.15); display:inline-block;">
+                            🌍 Language Exchange
+                        </a>
+                    </strong>
+                    <span style="display:block; margin-top:4px; color:#007bff; font-weight:500;">
+                        Ready to meet a language pal? Practice, teach, and learn together in Language Exchange!
+                    </span>
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <strong>
+                        <a href="/category/6/crafting" style="color: inherit; background: none; padding: 4px 12px; border-radius: 20px; text-decoration: none; font-weight: bold; display:inline-block;">
+                            💻 Crafting
+                        </a>
+                    </strong>
+                    <span style="display:block; margin-top:4px;">
+                        Are you a developer, designer, or entrepreneur? Share your projects, code, and creative work here.
+                    </span>
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <strong>
+                        <a href="/category/1/sharing" style="color: inherit; background: none; padding: 4px 12px; border-radius: 20px; text-decoration: none; font-weight: bold; display:inline-block;">
+                            📢 Sharing
+                        </a>
+                    </strong>
+                    <span style="display:block; margin-top:4px;">
+                        Post tutorials, tips, resources, or anything you've learned to help your fellow pals grow.
+                    </span>
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <strong>
+                        <a href="/category/3/feedback" style="color: inherit; background: none; padding: 4px 12px; border-radius: 20px; text-decoration: none; font-weight: bold; display:inline-block;">
+                            🐞 Feedback
+                        </a>
+                    </strong>
+                    <span style="display:block; margin-top:4px;">
+                        Found a bug or have ideas to improve PNL? Share suggestions and help shape our community.
+                    </span>
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <strong>
+                        <a href="/category/4/dictionariez-trove" style="color: inherit; background: none; padding: 4px 12px; border-radius: 20px; text-decoration: none; font-weight: bold; display:inline-block;">
+                            📚 Dictionariez Trove
+                        </a>
+                    </strong>
+                    <span style="display:block; margin-top:4px;">
+                        Enhance your Dictionariez, build your vocabulary, contribute to our dictionary collection.
+                    </span>
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <strong>
+                        <a href="/category/5/captionz-trove" style="color: inherit; background: none; padding: 4px 12px; border-radius: 20px; text-decoration: none; font-weight: bold; display:inline-block;">
+                            🎬 Captionz Trove
+                        </a>
+                    </strong>
+                    <span style="display:block; margin-top:4px;">
+                        Explore and share educational videos. Find captions and help others learn through youtube.
+                    </span>
+                </li>
+            </ul>
+        `,
+			buttons: {
+				ok: {
+					label: 'Start Exploring!',
+					className: 'btn-success',
+				},
+			},
+		});
+	};
+
 	const setupSelect2 = (selector, dropdownParent, savedValue = '') => {
 		const $select = $(selector);
 		if (!$select.length) {
@@ -96,9 +175,7 @@ $(document).ready(function () {
 								learningLanguages: learning.join(','),
 								fluentLanguages: fluent.join(','),
 							},
-							success: function (resp) {
-								// handle success
-							},
+							success: success,
 						});
 					},
 				},
