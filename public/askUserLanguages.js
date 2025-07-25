@@ -86,6 +86,30 @@ $(document).ready(function () {
                     </span>
                 </li>
             </ul>
+			
+			<hr style="margin: 2em 0 1em 0; border-top: 1px solid #e0e0e0;">
+			<p style="text-align:center; font-weight:500; margin-bottom:1em;">
+				Want to connect beyond the forum?<br>
+				<strong>Join our community chats and stay in the loop!</strong>
+			</p>
+			<div style="display:flex; justify-content:center; gap:18px; margin-bottom:1.2em;">
+                <a href="https://discord.gg/KqBc6s96" target="_blank" rel="noopener" title="Join us on Discord" style="text-decoration:none;">
+                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/discord.svg" alt="Discord" style="height:2em;vertical-align:middle;filter:invert(42%) sepia(98%) saturate(7492%) hue-rotate(221deg) brightness(99%) contrast(101%);margin-right:6px;">
+                    <span style="font-weight:600; color:#5865F2;">Discord</span>
+                </a>
+                <a href="https://t.me/programmingandlanguage" target="_blank" rel="noopener" title="Join our Telegram channel" style="text-decoration:none;">
+                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/telegram.svg" alt="Telegram" style="height:2em;vertical-align:middle;filter:invert(54%) sepia(97%) saturate(7492%) hue-rotate(176deg) brightness(99%) contrast(101%);margin-right:6px;">
+                    <span style="font-weight:600; color:#229ED9;">Telegram</span>
+                </a>
+                <a href="https://bsky.app/profile/pnlcommunity.bsky.social" target="_blank" rel="noopener" title="Follow us on Bluesky" style="text-decoration:none;">
+                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/bluesky.svg" alt="Bluesky" style="height:2em;vertical-align:middle;filter:invert(54%) sepia(97%) saturate(7492%) hue-rotate(176deg) brightness(99%) contrast(101%);margin-right:6px;">
+                    <span style="font-weight:600; color:#229ED9;">Bluesky</span>
+                </a>
+				<a href="https://mastodon.social/@river_young" target="_blank" rel="noopener" title="Follow us on Mastodon" style="text-decoration:none;">
+                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/mastodon.svg" alt="Mastodon" style="height:2em;vertical-align:middle;filter:invert(33%) sepia(99%) saturate(7492%) hue-rotate(220deg) brightness(99%) contrast(101%);margin-right:6px;">
+                    <span style="font-weight:600; color:#5865F2;">Mastodon</span>
+                </a>
+            </div>
         `,
 			buttons: {
 				ok: {
@@ -95,6 +119,8 @@ $(document).ready(function () {
 			},
 		});
 	};
+
+	// window.success = success;
 
 	const setupSelect2 = (selector, dropdownParent, savedValue = '') => {
 		const $select = $(selector);
