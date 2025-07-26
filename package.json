@@ -1,6 +1,6 @@
 {
 	"name": "nodebb-theme-pnlpal",
-	"version": "13.4.3",
+	"version": "13.4.4",
 	"nbbpm": {
 		"compatibility": "^3.7.0"
 	},
