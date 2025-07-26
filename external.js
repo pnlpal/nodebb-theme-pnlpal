@@ -233,7 +233,7 @@ module.exports = function (library) {
 					// console.log(data.postData)
 				} else if (postContent.match(captionzReg)) {
 					const youtubeLink = decodeURIComponent(
-						postContent.match(captionzReg)[1]
+						postContent.match(captionzReg)[2]
 					);
 					if (youtubeLink.match(youtubeLinkReg)) {
 						data.postData.content = postContent.replace(
