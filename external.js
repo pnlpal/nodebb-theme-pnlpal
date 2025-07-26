@@ -208,17 +208,17 @@ module.exports = function (library) {
 			// console.log('parsePost: ', data.postData);
 			var cid = await Posts.getCidByPid(data.postData.pid);
 
+			// only in Captionz Trove
+			var regularUrl =
+				/<a href="((?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|playlist)(?:\.php)?(?:\?.*(v|list)=|\/))([a-zA-Z0-9\_-]+)[^"]*)".*?>.+?<\/a>/;
+			var captionzReg =
+				/<a href="(?:https?:\/\/)?((?:pnlpal\.dev|pnl\.dev)\/captionz\/?\?link=)([^"]+)".*?>.+?<\/a>/;
+			var youtubeLinkReg =
+				/(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|playlist)(?:\.php)?(?:\?.*(v|list)=|\/))([a-zA-Z0-9\_-]+)/;
+
+			var postContent = data.postData.content || '';
+
 			if (cid == 5) {
-				// only in Captionz Trove
-				var regularUrl =
-					/<a href="((?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|playlist)(?:\.php)?(?:\?.*(v|list)=|\/))([a-zA-Z0-9\_-]+)[^"]*)".*?>.+?<\/a>/;
-				var captionzReg =
-					/<a href="(?:https?:\/\/)?((?:pnlpal\.dev|pnl\.dev)\/captionz\/?\?link=)([^"]+)".*?>.+?<\/a>/;
-				var youtubeLinkReg =
-					/(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|playlist)(?:\.php)?(?:\?.*(v|list)=|\/))([a-zA-Z0-9\_-]+)/;
-
-				var postContent = data.postData.content || '';
-
 				var embed =
 					"<div class='embed-captionz'><iframe src='/captionz-ii?link=<link>' width='100%' frameborder='0' onload='this.style.height=(this.contentWindow.document.body.scrollHeight+20)+\"px\";' allowfullscreen></iframe></div>";
 
@@ -242,6 +242,18 @@ module.exports = function (library) {
 						);
 					}
 				}
+			} else {
+				var allYouTubeLinks =
+					/<a href="((?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|playlist)(?:\.php)?(?:\?.*(v)=|\/))([a-zA-Z0-9\_-]+)[^"]*)".*?>.+?<\/a>/g;
+
+				var embed =
+					'<div class="embed-youtube"><iframe src="https://www.youtube.com/embed/<VIDEO_ID>?rel=0&modestbranding=1&showinfo=0&controls=1" width="100%" frameborder="0" allowfullscreen></iframe></div>';
+				data.postData.content = postContent.replace(
+					allYouTubeLinks,
+					function (match, url, key, videoId) {
+						return embed.replace('<VIDEO_ID>', videoId);
+					}
+				);
 			}
 		}
 

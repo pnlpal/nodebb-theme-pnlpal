@@ -184,6 +184,18 @@ nav.navbar {
 			}
 		}
 	}
+
+	.embed-youtube {
+		iframe {
+			width: 100%;
+			aspect-ratio: 16 / 9;
+			border: none;
+			overflow: hidden;
+			border-radius: 16px;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+			margin: 1em 0;
+		}
+	}
 }
 
 [component='composer'] .preview {
