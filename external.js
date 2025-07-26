@@ -23,7 +23,7 @@ module.exports = function (library) {
 				const indexInPlaylist = m3 ? parseInt(m3[1]) - 1 : 0;
 				return { playlistId: m[1], indexInPlaylist };
 			} else {
-				// link can be like this: https://pnlpal.dev/captionz?link=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3Dh5RoVGO4XVA
+				// link can be like this: https://pnl.dev/captionz?link=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3Dh5RoVGO4XVA
 				const linkUrl = new URL(url);
 				const link = linkUrl.searchParams.get('link');
 				if (link) {
@@ -213,7 +213,7 @@ module.exports = function (library) {
 				var regularUrl =
 					/<a href="((?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|playlist)(?:\.php)?(?:\?.*(v|list)=|\/))([a-zA-Z0-9\_-]+)[^"]*)".*?>.+?<\/a>/;
 				var captionzReg =
-					/<a href="(?:https?:\/\/)?(?:pnlpal.dev\/captionz\/?\?link=)([^"]+)".*?>.+?<\/a>/;
+					/<a href="(?:https?:\/\/)?((?:pnlpal\.dev|pnl\.dev)\/captionz\/?\?link=)([^"]+)".*?>.+?<\/a>/;
 				var youtubeLinkReg =
 					/(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|playlist)(?:\.php)?(?:\?.*(v|list)=|\/))([a-zA-Z0-9\_-]+)/;
 
